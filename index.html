@@ -249,37 +249,14 @@
             animation: sentenceAppear 1s ease forwards;
         }
 
-        .sentence:nth-child(1) {
-            animation-delay: 0.5s;
-        }
-
-        .sentence:nth-child(2) {
-            animation-delay: 0.8s;
-        }
-
-        .sentence:nth-child(3) {
-            animation-delay: 1.1s;
-        }
-
-        .sentence:nth-child(4) {
-            animation-delay: 1.4s;
-        }
-
-        .sentence:nth-child(5) {
-            animation-delay: 1.7s;
-        }
-
-        .sentence:nth-child(6) {
-            animation-delay: 2s;
-        }
-
-        .sentence:nth-child(7) {
-            animation-delay: 2.3s;
-        }
-
-        .sentence:nth-child(8) {
-            animation-delay: 2.6s;
-        }
+        .sentence:nth-child(1) { animation-delay: 0.5s; }
+        .sentence:nth-child(2) { animation-delay: 0.8s; }
+        .sentence:nth-child(3) { animation-delay: 1.1s; }
+        .sentence:nth-child(4) { animation-delay: 1.4s; }
+        .sentence:nth-child(5) { animation-delay: 1.7s; }
+        .sentence:nth-child(6) { animation-delay: 2s; }
+        .sentence:nth-child(7) { animation-delay: 2.3s; }
+        .sentence:nth-child(8) { animation-delay: 2.6s; }
 
         @keyframes sentenceAppear {
             to {
@@ -502,7 +479,7 @@
                 </div>
             </div>
 
-            <div>
+            <div id="musicControl">
                 <button
                     class="control"
                     id="musicButton"
@@ -526,125 +503,84 @@
     </audio>
 
     <script>
-
-        const startScreen =
-            document.getElementById("startScreen");
-
-        const startButton =
-            document.getElementById("startButton");
-
-        const content =
-            document.getElementById("content");
-
-        const music =
-            document.getElementById("music");
-
-        const musicButton =
-            document.getElementById("musicButton");
-
-        const translationButton =
-            document.getElementById("translationButton");
-
-        const translations =
-            document.querySelectorAll(".spanish");
+        const startScreen = document.getElementById("startScreen");
+        const startButton = document.getElementById("startButton");
+        const content = document.getElementById("content");
+        const music = document.getElementById("music");
+        const musicButton = document.getElementById("musicButton");
+        const musicControl = document.getElementById("musicControl");
+        const translationButton = document.getElementById("translationButton");
+        const translations = document.querySelectorAll(".spanish");
 
         let playing = false;
         let translationsVisible = false;
 
-        startButton.addEventListener("click", async () => {
+        function hideMusic() {
+            musicControl.style.display = "none";
+        }
 
-            try {
-
-                await music.play();
-
-                playing = true;
-
-                musicButton.textContent = "❚❚";
-
-            } catch (error) {
-
-                console.log(
-                    "No se pudo reproducir la música."
-                );
-
-            }
+        startButton.addEventListener("click", () => {
 
             startScreen.style.opacity = "0";
             startScreen.style.transform = "scale(1.08)";
 
+            content.classList.add("visible");
+
             setTimeout(() => {
-
                 startScreen.style.display = "none";
-
-                content.classList.add("visible");
-
             }, 900);
 
+            music.play()
+                .then(() => {
+                    playing = true;
+                    musicButton.textContent = "❚❚";
+                })
+                .catch(() => {
+                    playing = false;
+                    hideMusic();
+                });
         });
 
-        musicButton.addEventListener("click", async () => {
+        music.addEventListener("error", () => {
+            hideMusic();
+        });
+
+        musicButton.addEventListener("click", () => {
 
             if (playing) {
 
                 music.pause();
-
                 musicButton.textContent = "▶";
-
                 playing = false;
 
             } else {
 
-                try {
-
-                    await music.play();
-
-                    musicButton.textContent = "❚❚";
-
-                    playing = true;
-
-                } catch (error) {
-
-                    console.log(
-                        "No se pudo reproducir la música."
-                    );
-
-                }
-
+                music.play()
+                    .then(() => {
+                        playing = true;
+                        musicButton.textContent = "❚❚";
+                    })
+                    .catch(() => {
+                        hideMusic();
+                    });
             }
-
         });
 
         translationButton.addEventListener("click", () => {
 
-            translationsVisible =
-                !translationsVisible;
+            translationsVisible = !translationsVisible;
 
             translations.forEach(translation => {
-
                 if (translationsVisible) {
-
                     translation.classList.add("show");
-
                 } else {
-
                     translation.classList.remove("show");
-
                 }
-
             });
 
-            if (translationsVisible) {
-
-                translationButton.textContent = "✕";
-
-            } else {
-
-                translationButton.textContent = "文";
-
-            }
-
+            translationButton.textContent =
+                translationsVisible ? "✕" : "文";
         });
-
     </script>
 
 </body>
