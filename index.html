@@ -1,1 +1,651 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ti Voglio Bene</title>
 
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        body {
+            font-family: Georgia, "Times New Roman", serif;
+            background: #f4eee7;
+            color: #3b2418;
+        }
+
+        #startScreen {
+            position: fixed;
+            inset: 0;
+            z-index: 100;
+            background: #160e0a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+            transition: opacity 1.4s ease, transform 1.4s ease;
+        }
+
+        #startScreen h2 {
+            color: #f5eee8;
+            font-size: clamp(1.8rem, 8vw, 3rem);
+            font-weight: normal;
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+        }
+
+        #startScreen p {
+            color: rgba(255,255,255,0.55);
+            font-family: Arial, sans-serif;
+            font-size: 13px;
+            margin-bottom: 8px;
+        }
+
+        #volumeMessage {
+            color: rgba(255,255,255,0.8);
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            letter-spacing: 0.5px;
+            margin-bottom: 28px;
+        }
+
+        #startButton {
+            padding: 13px 32px;
+            border-radius: 40px;
+            border: 1px solid rgba(255,255,255,0.35);
+            background: rgba(255,255,255,0.06);
+            color: white;
+            font-family: Georgia, serif;
+            font-size: 15px;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: 0.4s;
+        }
+
+        #startButton:hover {
+            background: rgba(255,255,255,0.15);
+            transform: scale(1.05);
+        }
+
+        #startButton:active {
+            transform: scale(0.94);
+        }
+
+        .background {
+            position: fixed;
+            inset: 0;
+            overflow: hidden;
+            background: linear-gradient(135deg, #f7f2ed, #e8ddd2);
+            z-index: 0;
+        }
+
+        .cloud {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(55px);
+            opacity: 0.75;
+            pointer-events: none;
+        }
+
+        .cloud.brown1 {
+            width: 430px;
+            height: 430px;
+            background: #8a624b;
+            top: -180px;
+            left: -170px;
+            animation: cloud1 14s ease-in-out infinite;
+        }
+
+        .cloud.brown2 {
+            width: 350px;
+            height: 350px;
+            background: #6f4a36;
+            bottom: -170px;
+            right: -120px;
+            animation: cloud2 17s ease-in-out infinite;
+        }
+
+        .cloud.white1 {
+            width: 380px;
+            height: 380px;
+            background: #ffffff;
+            top: 25%;
+            right: -180px;
+            opacity: 0.9;
+            animation: cloud3 16s ease-in-out infinite;
+        }
+
+        .cloud.white2 {
+            width: 330px;
+            height: 330px;
+            background: #fffaf5;
+            bottom: 5%;
+            left: -170px;
+            opacity: 0.9;
+            animation: cloud4 18s ease-in-out infinite;
+        }
+
+        @keyframes cloud1 {
+            0%, 100% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            50% {
+                transform: translate(100px, 80px) scale(1.25);
+            }
+        }
+
+        @keyframes cloud2 {
+            0%, 100% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            50% {
+                transform: translate(-100px, -70px) scale(1.3);
+            }
+        }
+
+        @keyframes cloud3 {
+            0%, 100% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            50% {
+                transform: translate(-90px, 80px) scale(1.2);
+            }
+        }
+
+        @keyframes cloud4 {
+            0%, 100% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            50% {
+                transform: translate(80px, -80px) scale(1.25);
+            }
+        }
+
+        .content {
+            position: relative;
+            z-index: 2;
+            width: 91%;
+            max-width: 650px;
+            height: 88vh;
+            margin: auto;
+            top: 6vh;
+            padding: 35px 25px;
+            border-radius: 30px;
+            background: rgba(255,255,255,0.38);
+            border: 1px solid rgba(255,255,255,0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0 20px 70px rgba(70,40,20,0.15);
+            overflow-y: auto;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1.5s ease, transform 1.5s ease;
+        }
+
+        .content.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .symbol {
+            width: 100%;
+            text-align: center;
+            font-size: 23px;
+            color: #704b36;
+            margin-bottom: 12px;
+            animation: heartFade 3s ease-in-out infinite;
+        }
+
+        @keyframes heartFade {
+            0%, 100% {
+                opacity: 0.55;
+            }
+
+            50% {
+                opacity: 1;
+            }
+        }
+
+        h1 {
+            text-align: center;
+            font-size: clamp(2.3rem, 10vw, 4rem);
+            font-weight: normal;
+            color: #4b2d1d;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+        }
+
+        .line {
+            width: 70px;
+            height: 1px;
+            background: #79543e;
+            margin: 0 auto 30px;
+            opacity: 0.6;
+        }
+
+        .text {
+            text-align: center;
+        }
+
+        .sentence {
+            margin-bottom: 25px;
+            opacity: 0;
+            transform: translateY(12px);
+            animation: sentenceAppear 1s ease forwards;
+        }
+
+        .sentence:nth-child(1) {
+            animation-delay: 0.5s;
+        }
+
+        .sentence:nth-child(2) {
+            animation-delay: 0.8s;
+        }
+
+        .sentence:nth-child(3) {
+            animation-delay: 1.1s;
+        }
+
+        .sentence:nth-child(4) {
+            animation-delay: 1.4s;
+        }
+
+        .sentence:nth-child(5) {
+            animation-delay: 1.7s;
+        }
+
+        .sentence:nth-child(6) {
+            animation-delay: 2s;
+        }
+
+        .sentence:nth-child(7) {
+            animation-delay: 2.3s;
+        }
+
+        .sentence:nth-child(8) {
+            animation-delay: 2.6s;
+        }
+
+        @keyframes sentenceAppear {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .italian {
+            font-size: clamp(1.05rem, 4.5vw, 1.25rem);
+            line-height: 1.7;
+            color: #43281b;
+        }
+
+        .spanish {
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transform: translateY(-5px);
+            transition: max-height 0.7s ease, opacity 0.7s ease, transform 0.7s ease;
+            font-family: Arial, sans-serif;
+            font-size: 0.82rem;
+            line-height: 1.5;
+            color: #765b4a;
+            margin-top: 0;
+        }
+
+        .spanish.show {
+            max-height: 100px;
+            opacity: 0.85;
+            transform: translateY(0);
+            margin-top: 7px;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin-top: 15px;
+            padding-bottom: 10px;
+        }
+
+        button.control {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: 1px solid rgba(90,55,35,0.35);
+            background: rgba(255,255,255,0.35);
+            color: #4b2d1d;
+            font-size: 17px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button.control:hover {
+            background: rgba(255,255,255,0.65);
+            transform: scale(1.05);
+        }
+
+        button.control:active {
+            transform: scale(0.9);
+        }
+
+        .button-label {
+            font-family: Arial, sans-serif;
+            font-size: 10px;
+            color: #674938;
+            margin-top: 5px;
+        }
+
+        .content::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .content::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .content::-webkit-scrollbar-thumb {
+            background: rgba(90,55,35,0.25);
+            border-radius: 10px;
+        }
+
+        @media (max-width: 500px) {
+            .content {
+                width: 94%;
+                height: 90vh;
+                top: 5vh;
+                padding: 30px 20px;
+            }
+
+            .sentence {
+                margin-bottom: 22px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="startScreen">
+        <h2>Ti Voglio Bene</h2>
+        <p>Tocá para continuar</p>
+        <div id="volumeMessage">🔊 Subí el volumen</div>
+        <button id="startButton">Abrir</button>
+    </div>
+
+    <div class="background">
+        <div class="cloud brown1"></div>
+        <div class="cloud brown2"></div>
+        <div class="cloud white1"></div>
+        <div class="cloud white2"></div>
+    </div>
+
+    <main class="content" id="content">
+
+        <div class="symbol">♡</div>
+
+        <h1>Ti Voglio Bene</h1>
+
+        <div class="line"></div>
+
+        <div class="text">
+
+            <div class="sentence">
+                <div class="italian">
+                    Voglio dirti che sono davvero interessato a te.
+                </div>
+                <div class="spanish">
+                    Quiero decirte que estoy realmente interesado en ti.
+                </div>
+            </div>
+
+            <div class="sentence">
+                <div class="italian">
+                    E che vorrei passare al tuo fianco ogni istante,
+                    nei giorni belli e in quelli più difficili.
+                </div>
+                <div class="spanish">
+                    Y que me gustaría pasar a tu lado cada instante,
+                    en los días buenos y en los más difíciles.
+                </div>
+            </div>
+
+            <div class="sentence">
+                <div class="italian">
+                    Vorrei essere il tuo compagno.
+                </div>
+                <div class="spanish">
+                    Quisiera ser tu compañero.
+                </div>
+            </div>
+
+            <div class="sentence">
+                <div class="italian">
+                    Colui che rimane accanto a te quando ne hai bisogno.
+                </div>
+                <div class="spanish">
+                    Aquel que permanece a tu lado cuando lo necesitas.
+                </div>
+            </div>
+
+            <div class="sentence">
+                <div class="italian">
+                    La mano che puoi cercare quando tutto sembra
+                    diventare più pesante.
+                </div>
+                <div class="spanish">
+                    La mano que puedes buscar cuando todo parece
+                    volverse más pesado.
+                </div>
+            </div>
+
+            <div class="sentence">
+                <div class="italian">
+                    Vorrei essere il tuo posto sicuro.
+                </div>
+                <div class="spanish">
+                    Quisiera ser tu lugar seguro.
+                </div>
+            </div>
+
+            <div class="sentence">
+                <div class="italian">
+                    Dove puoi essere semplicemente te stesso,
+                    senza paura, senza maschere.
+                </div>
+                <div class="spanish">
+                    Donde puedas ser simplemente tú mismo,
+                    sin miedo, sin máscaras.
+                </div>
+            </div>
+
+            <div class="sentence">
+                <div class="italian">
+                    Sapendo che, qualunque cosa accada,
+                    io sarò lì al tuo fianco.
+                </div>
+                <div class="spanish">
+                    Sabiendo que, pase lo que pase,
+                    estaré allí a tu lado.
+                </div>
+            </div>
+
+        </div>
+
+        <div class="buttons">
+
+            <div>
+                <button
+                    class="control"
+                    id="translationButton"
+                    title="Mostrar traducción">
+                    文
+                </button>
+
+                <div class="button-label">
+                    Traducción
+                </div>
+            </div>
+
+            <div>
+                <button
+                    class="control"
+                    id="musicButton"
+                    title="Música">
+                    ▶
+                </button>
+
+                <div class="button-label">
+                    Música
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <audio id="music" loop preload="auto">
+        <source
+            src="musica/OjitosLindos.mp3"
+            type="audio/mpeg">
+    </audio>
+
+    <script>
+
+        const startScreen =
+            document.getElementById("startScreen");
+
+        const startButton =
+            document.getElementById("startButton");
+
+        const content =
+            document.getElementById("content");
+
+        const music =
+            document.getElementById("music");
+
+        const musicButton =
+            document.getElementById("musicButton");
+
+        const translationButton =
+            document.getElementById("translationButton");
+
+        const translations =
+            document.querySelectorAll(".spanish");
+
+        let playing = false;
+        let translationsVisible = false;
+
+        startButton.addEventListener("click", async () => {
+
+            try {
+
+                await music.play();
+
+                playing = true;
+
+                musicButton.textContent = "❚❚";
+
+            } catch (error) {
+
+                console.log(
+                    "No se pudo reproducir la música."
+                );
+
+            }
+
+            startScreen.style.opacity = "0";
+            startScreen.style.transform = "scale(1.08)";
+
+            setTimeout(() => {
+
+                startScreen.style.display = "none";
+
+                content.classList.add("visible");
+
+            }, 900);
+
+        });
+
+        musicButton.addEventListener("click", async () => {
+
+            if (playing) {
+
+                music.pause();
+
+                musicButton.textContent = "▶";
+
+                playing = false;
+
+            } else {
+
+                try {
+
+                    await music.play();
+
+                    musicButton.textContent = "❚❚";
+
+                    playing = true;
+
+                } catch (error) {
+
+                    console.log(
+                        "No se pudo reproducir la música."
+                    );
+
+                }
+
+            }
+
+        });
+
+        translationButton.addEventListener("click", () => {
+
+            translationsVisible =
+                !translationsVisible;
+
+            translations.forEach(translation => {
+
+                if (translationsVisible) {
+
+                    translation.classList.add("show");
+
+                } else {
+
+                    translation.classList.remove("show");
+
+                }
+
+            });
+
+            if (translationsVisible) {
+
+                translationButton.textContent = "✕";
+
+            } else {
+
+                translationButton.textContent = "文";
+
+            }
+
+        });
+
+    </script>
+
+</body>
+</html>
