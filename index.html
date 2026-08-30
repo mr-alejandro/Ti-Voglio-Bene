@@ -49,6 +49,14 @@
             color: rgba(255,255,255,0.55);
             font-family: Arial, sans-serif;
             font-size: 13px;
+            margin-bottom: 8px;
+        }
+
+        #volumeMessage {
+            color: rgba(255,255,255,0.8);
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            letter-spacing: 0.5px;
             margin-bottom: 28px;
         }
 
@@ -376,6 +384,7 @@
     <div id="startScreen">
         <h2>Ti Voglio Bene</h2>
         <p>Tocá para continuar</p>
+        <div id="volumeMessage">🔊 Subí el volumen</div>
         <button id="startButton">Abrir</button>
     </div>
 
@@ -510,10 +519,10 @@
 
     </main>
 
-    <audio id="music" loop>
+    <audio id="music" loop preload="auto">
         <source
-            src="musica/OjitosLindos.m4a"
-            type="audio/mp4">
+            src="musica/OjitosLindos.mp3"
+            type="audio/mpeg">
     </audio>
 
     <script>
@@ -545,6 +554,7 @@
         startButton.addEventListener("click", async () => {
 
             try {
+
                 await music.play();
 
                 playing = true;
@@ -552,9 +562,11 @@
                 musicButton.textContent = "❚❚";
 
             } catch (error) {
+
                 console.log(
-                    "La música no pudo comenzar automáticamente."
+                    "No se pudo reproducir la música."
                 );
+
             }
 
             startScreen.style.opacity = "0";
