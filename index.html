@@ -249,14 +249,37 @@
             animation: sentenceAppear 1s ease forwards;
         }
 
-        .sentence:nth-child(1) { animation-delay: 0.5s; }
-        .sentence:nth-child(2) { animation-delay: 0.8s; }
-        .sentence:nth-child(3) { animation-delay: 1.1s; }
-        .sentence:nth-child(4) { animation-delay: 1.4s; }
-        .sentence:nth-child(5) { animation-delay: 1.7s; }
-        .sentence:nth-child(6) { animation-delay: 2s; }
-        .sentence:nth-child(7) { animation-delay: 2.3s; }
-        .sentence:nth-child(8) { animation-delay: 2.6s; }
+        .sentence:nth-child(1) {
+            animation-delay: 0.5s;
+        }
+
+        .sentence:nth-child(2) {
+            animation-delay: 0.8s;
+        }
+
+        .sentence:nth-child(3) {
+            animation-delay: 1.1s;
+        }
+
+        .sentence:nth-child(4) {
+            animation-delay: 1.4s;
+        }
+
+        .sentence:nth-child(5) {
+            animation-delay: 1.7s;
+        }
+
+        .sentence:nth-child(6) {
+            animation-delay: 2s;
+        }
+
+        .sentence:nth-child(7) {
+            animation-delay: 2.3s;
+        }
+
+        .sentence:nth-child(8) {
+            animation-delay: 2.6s;
+        }
 
         @keyframes sentenceAppear {
             to {
@@ -496,19 +519,35 @@
 
     </main>
 
-    <audio id="music" loop preload="auto">
-        <source src="OjitosLindos.mp3" type="audio/mpeg">
-    </audio>
+    <audio id="music" loop preload="auto"></audio>
 
     <script>
-        const startScreen = document.getElementById("startScreen");
-        const startButton = document.getElementById("startButton");
-        const content = document.getElementById("content");
-        const music = document.getElementById("music");
-        const musicButton = document.getElementById("musicButton");
-        const musicControl = document.getElementById("musicControl");
-        const translationButton = document.getElementById("translationButton");
-        const translations = document.querySelectorAll(".spanish");
+        const startScreen =
+            document.getElementById("startScreen");
+
+        const startButton =
+            document.getElementById("startButton");
+
+        const content =
+            document.getElementById("content");
+
+        const music =
+            document.getElementById("music");
+
+        const musicButton =
+            document.getElementById("musicButton");
+
+        const musicControl =
+            document.getElementById("musicControl");
+
+        const translationButton =
+            document.getElementById("translationButton");
+
+        const translations =
+            document.querySelectorAll(".spanish");
+
+        music.src =
+            "https://mr-alejandro.github.io/Ti-Voglio-Bene/OjitosLindos.mp3";
 
         let playing = false;
         let translationsVisible = false;
@@ -548,7 +587,9 @@
             if (playing) {
 
                 music.pause();
+
                 musicButton.textContent = "▶";
+
                 playing = false;
 
             } else {
@@ -566,14 +607,17 @@
 
         translationButton.addEventListener("click", () => {
 
-            translationsVisible = !translationsVisible;
+            translationsVisible =
+                !translationsVisible;
 
             translations.forEach(translation => {
+
                 if (translationsVisible) {
                     translation.classList.add("show");
                 } else {
                     translation.classList.remove("show");
                 }
+
             });
 
             translationButton.textContent =
