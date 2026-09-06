@@ -82,12 +82,27 @@
             transform: scale(0.94);
         }
 
+        .screen {
+            position: fixed;
+            inset: 0;
+            display: none;
+            overflow: hidden;
+        }
+
+        .screen.active {
+            display: block;
+        }
+
         .background {
             position: fixed;
             inset: 0;
             overflow: hidden;
             background: linear-gradient(135deg, #f7f2ed, #e8ddd2);
             z-index: 0;
+        }
+
+        .yellowBackground {
+            background: linear-gradient(135deg, #fffdf2, #f4edc8);
         }
 
         .cloud {
@@ -130,6 +145,44 @@
             width: 330px;
             height: 330px;
             background: #fffaf5;
+            bottom: 5%;
+            left: -170px;
+            opacity: 0.9;
+            animation: cloud4 18s ease-in-out infinite;
+        }
+
+        .cloud.yellow1 {
+            width: 430px;
+            height: 430px;
+            background: #e6c84f;
+            top: -180px;
+            left: -170px;
+            animation: cloud1 14s ease-in-out infinite;
+        }
+
+        .cloud.yellow2 {
+            width: 350px;
+            height: 350px;
+            background: #d8b72f;
+            bottom: -170px;
+            right: -120px;
+            animation: cloud2 17s ease-in-out infinite;
+        }
+
+        .cloud.yellowWhite1 {
+            width: 380px;
+            height: 380px;
+            background: #fffef5;
+            top: 25%;
+            right: -180px;
+            opacity: 0.9;
+            animation: cloud3 16s ease-in-out infinite;
+        }
+
+        .cloud.yellowWhite2 {
+            width: 330px;
+            height: 330px;
+            background: #ffffff;
             bottom: 5%;
             left: -170px;
             opacity: 0.9;
@@ -211,6 +264,11 @@
             animation: heartFade 3s ease-in-out infinite;
         }
 
+        .yellowSymbol {
+            font-size: 34px;
+            animation: heartFade 3s ease-in-out infinite;
+        }
+
         @keyframes heartFade {
             0%, 100% {
                 opacity: 0.55;
@@ -230,12 +288,20 @@
             margin-bottom: 15px;
         }
 
+        .yellowTitle {
+            color: #705d12;
+        }
+
         .line {
             width: 70px;
             height: 1px;
             background: #79543e;
             margin: 0 auto 30px;
             opacity: 0.6;
+        }
+
+        .yellowLine {
+            background: #9c861f;
         }
 
         .text {
@@ -288,10 +354,15 @@
             }
         }
 
-        .italian {
+        .italian,
+        .yellowText {
             font-size: clamp(1.05rem, 4.5vw, 1.25rem);
             line-height: 1.7;
             color: #43281b;
+        }
+
+        .yellowText {
+            color: #514914;
         }
 
         .spanish {
@@ -349,6 +420,11 @@
             font-size: 10px;
             color: #674938;
             margin-top: 5px;
+            text-align: center;
+        }
+
+        .yellowLabel {
+            color: #70631d;
         }
 
         .content::-webkit-scrollbar {
@@ -362,6 +438,177 @@
         .content::-webkit-scrollbar-thumb {
             background: rgba(90,55,35,0.25);
             border-radius: 10px;
+        }
+
+        #menu {
+            position: fixed;
+            inset: 0;
+            z-index: 50;
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: #160e0a;
+            color: white;
+            text-align: center;
+            padding: 25px;
+        }
+
+        #menu.active {
+            display: flex;
+        }
+
+        #menu h1 {
+            color: #f5eee8;
+            margin-bottom: 8px;
+        }
+
+        #menu p {
+            font-family: Arial, sans-serif;
+            font-size: 13px;
+            color: rgba(255,255,255,0.55);
+            margin-bottom: 30px;
+        }
+
+        .menuOptions {
+            width: min(90%, 420px);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .menuButton {
+            width: 100%;
+            padding: 17px 20px;
+            border-radius: 18px;
+            border: 1px solid rgba(255,255,255,0.18);
+            background: rgba(255,255,255,0.06);
+            color: white;
+            font-family: Georgia, serif;
+            cursor: pointer;
+            transition: 0.3s;
+            text-align: left;
+        }
+
+        .menuButton:hover {
+            background: rgba(255,255,255,0.12);
+            transform: translateY(-2px);
+        }
+
+        .menuButton.disabled {
+            opacity: 0.45;
+            cursor: default;
+        }
+
+        .menuButton.disabled:hover {
+            transform: none;
+            background: rgba(255,255,255,0.06);
+        }
+
+        .menuTitle {
+            font-size: 17px;
+            margin-bottom: 6px;
+        }
+
+        .menuDate {
+            font-family: Arial, sans-serif;
+            font-size: 11px;
+            color: rgba(255,255,255,0.5);
+        }
+
+        .menuStatus {
+            float: right;
+            font-family: Arial, sans-serif;
+            font-size: 11px;
+            color: rgba(255,255,255,0.55);
+            margin-top: 3px;
+        }
+
+        #codeScreen {
+            position: fixed;
+            inset: 0;
+            z-index: 80;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            background: rgba(10,6,4,0.94);
+            padding: 25px;
+        }
+
+        #codeScreen.active {
+            display: flex;
+        }
+
+        .codeBox {
+            width: min(90%, 360px);
+            padding: 32px 25px;
+            border-radius: 25px;
+            background: #21150f;
+            border: 1px solid rgba(255,255,255,0.15);
+            text-align: center;
+            box-shadow: 0 20px 70px rgba(0,0,0,0.4);
+        }
+
+        .codeBox h2 {
+            color: #f5eee8;
+            font-weight: normal;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .codeBox p {
+            font-family: Arial, sans-serif;
+            color: rgba(255,255,255,0.55);
+            font-size: 12px;
+            line-height: 1.5;
+            margin-bottom: 22px;
+        }
+
+        #codeInput {
+            width: 100%;
+            padding: 13px;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.2);
+            background: rgba(255,255,255,0.07);
+            color: white;
+            text-align: center;
+            font-family: Arial, sans-serif;
+            font-size: 20px;
+            letter-spacing: 5px;
+            outline: none;
+        }
+
+        #codeInput:focus {
+            border-color: rgba(255,255,255,0.5);
+        }
+
+        #codeError {
+            height: 18px;
+            margin-top: 10px;
+            color: #d69a8e;
+            font-family: Arial, sans-serif;
+            font-size: 11px;
+        }
+
+        .codeButtons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .codeAction {
+            padding: 11px 20px;
+            border-radius: 30px;
+            border: 1px solid rgba(255,255,255,0.2);
+            background: rgba(255,255,255,0.07);
+            color: white;
+            cursor: pointer;
+            font-family: Georgia, serif;
+        }
+
+        .codeAction:hover {
+            background: rgba(255,255,255,0.14);
         }
 
         @media (max-width: 500px) {
@@ -388,182 +635,418 @@
         <button id="startButton">Abrir</button>
     </div>
 
-    <div class="background">
-        <div class="cloud brown1"></div>
-        <div class="cloud brown2"></div>
-        <div class="cloud white1"></div>
-        <div class="cloud white2"></div>
+    <div id="menu">
+        <h1>Ti Voglio Bene</h1>
+        <p>Selecciona un apartado</p>
+
+        <div class="menuOptions">
+
+            <button class="menuButton" id="firstMessageButton">
+                <span class="menuStatus">🎵 🔊</span>
+                <div class="menuTitle">♡ Primer Mensaje</div>
+                <div class="menuDate">30/08/26</div>
+            </button>
+
+            <button class="menuButton disabled" id="yellowButton">
+                <span class="menuStatus" id="yellowStatus">🎵 🔊</span>
+                <div class="menuTitle">🌻 Flores Amarillas</div>
+                <div class="menuDate">21/09/26</div>
+            </button>
+
+        </div>
     </div>
 
-    <main class="content" id="content">
+    <div id="codeScreen">
+        <div class="codeBox">
+            <h2>🌻</h2>
+            <p>Hay algo esperando por vos.<br>Ingresá el código para continuar.</p>
 
-        <div class="symbol">♡</div>
+            <input
+                id="codeInput"
+                type="text"
+                inputmode="numeric"
+                maxlength="6"
+                autocomplete="off"
+                placeholder="••••••"
+            >
 
-        <h1>Ti Voglio Bene</h1>
+            <div id="codeError"></div>
 
-        <div class="line"></div>
-
-        <div class="text">
-
-            <div class="sentence">
-                <div class="italian">
-                    Voglio dirti che sono davvero interessato a te.
-                </div>
-                <div class="spanish">
-                    Quiero decirte que estoy realmente interesado en ti.
-                </div>
+            <div class="codeButtons">
+                <button class="codeAction" id="cancelCode">Volver</button>
+                <button class="codeAction" id="verifyCode">Continuar</button>
             </div>
+        </div>
+    </div>
 
-            <div class="sentence">
-                <div class="italian">
-                    E che vorrei passare al tuo fianco ogni istante,
-                    nei giorni belli e in quelli più difficili.
-                </div>
-                <div class="spanish">
-                    Y que me gustaría pasar a tu lado cada instante,
-                    en los días buenos y en los más difíciles.
-                </div>
-            </div>
+    <div class="screen" id="firstScreen">
 
-            <div class="sentence">
-                <div class="italian">
-                    Vorrei essere il tuo compagno.
-                </div>
-                <div class="spanish">
-                    Quisiera ser tu compañero.
-                </div>
-            </div>
-
-            <div class="sentence">
-                <div class="italian">
-                    Colui che rimane accanto a te quando ne hai bisogno.
-                </div>
-                <div class="spanish">
-                    Aquel que permanece a tu lado cuando lo necesitas.
-                </div>
-            </div>
-
-            <div class="sentence">
-                <div class="italian">
-                    La mano che puoi cercare quando tutto sembra
-                    diventare più pesante.
-                </div>
-                <div class="spanish">
-                    La mano que puedes buscar cuando todo parece
-                    volverse más pesado.
-                </div>
-            </div>
-
-            <div class="sentence">
-                <div class="italian">
-                    Vorrei essere il tuo posto sicuro.
-                </div>
-                <div class="spanish">
-                    Quisiera ser tu lugar seguro.
-                </div>
-            </div>
-
-            <div class="sentence">
-                <div class="italian">
-                    Dove puoi essere semplicemente te stesso,
-                    senza paura, senza maschere.
-                </div>
-                <div class="spanish">
-                    Donde puedas ser simplemente tú mismo,
-                    sin miedo, sin máscaras.
-                </div>
-            </div>
-
-            <div class="sentence">
-                <div class="italian">
-                    Sapendo che, qualunque cosa accada,
-                    io sarò lì al tuo fianco.
-                </div>
-                <div class="spanish">
-                    Sabiendo que, pase lo que pase,
-                    estaré allí a tu lado.
-                </div>
-            </div>
-
+        <div class="background">
+            <div class="cloud brown1"></div>
+            <div class="cloud brown2"></div>
+            <div class="cloud white1"></div>
+            <div class="cloud white2"></div>
         </div>
 
-        <div class="buttons">
+        <main class="content" id="firstContent">
 
-            <div>
-                <button
-                    class="control"
-                    id="translationButton"
-                    title="Mostrar traducción">
-                    文
-                </button>
+            <div class="symbol">♡</div>
 
-                <div class="button-label">
-                    Traducción
+            <h1>Ti Voglio Bene</h1>
+
+            <div class="line"></div>
+
+            <div class="text">
+
+                <div class="sentence">
+                    <div class="italian">
+                        Voglio dirti che sono davvero interessato a te.
+                    </div>
+                    <div class="spanish">
+                        Quiero decirte que estoy realmente interesado en ti.
+                    </div>
                 </div>
+
+                <div class="sentence">
+                    <div class="italian">
+                        E che vorrei passare al tuo fianco ogni istante,
+                        nei giorni belli e in quelli più difficili.
+                    </div>
+                    <div class="spanish">
+                        Y que me gustaría pasar a tu lado cada instante,
+                        en los días buenos y en los más difíciles.
+                    </div>
+                </div>
+
+                <div class="sentence">
+                    <div class="italian">
+                        Vorrei essere il tuo compagno.
+                    </div>
+                    <div class="spanish">
+                        Quisiera ser tu compañero.
+                    </div>
+                </div>
+
+                <div class="sentence">
+                    <div class="italian">
+                        Colui che rimane accanto a te quando ne hai bisogno.
+                    </div>
+                    <div class="spanish">
+                        Aquel que permanece a tu lado cuando lo necesitas.
+                    </div>
+                </div>
+
+                <div class="sentence">
+                    <div class="italian">
+                        La mano che puoi cercare quando tutto sembra
+                        diventare più pesante.
+                    </div>
+                    <div class="spanish">
+                        La mano que puedes buscar cuando todo parece
+                        volverse más pesado.
+                    </div>
+                </div>
+
+                <div class="sentence">
+                    <div class="italian">
+                        Vorrei essere il tuo posto sicuro.
+                    </div>
+                    <div class="spanish">
+                        Quisiera ser tu lugar seguro.
+                    </div>
+                </div>
+
+                <div class="sentence">
+                    <div class="italian">
+                        Dove puoi essere semplicemente te stesso,
+                        senza paura, senza maschere.
+                    </div>
+                    <div class="spanish">
+                        Donde puedas ser simplemente tú mismo,
+                        sin miedo, sin máscaras.
+                    </div>
+                </div>
+
+                <div class="sentence">
+                    <div class="italian">
+                        Sapendo che, qualunque cosa accada,
+                        io sarò lì al tuo fianco.
+                    </div>
+                    <div class="spanish">
+                        Sabiendo que, pase lo que pase,
+                        estaré allí a tu lado.
+                    </div>
+                </div>
+
             </div>
 
-            <div id="musicControl">
-                <button
-                    class="control"
-                    id="musicButton"
-                    title="Música">
-                    ▶
-                </button>
+            <div class="buttons">
 
-                <div class="button-label">
-                    Música
+                <div>
+                    <button
+                        class="control"
+                        id="translationButton"
+                        title="Mostrar traducción">
+                        文
+                    </button>
+
+                    <div class="button-label">
+                        Traducción
+                    </div>
                 </div>
+
+                <div id="musicControl">
+                    <button
+                        class="control"
+                        id="musicButton"
+                        title="Música">
+                        ▶
+                    </button>
+
+                    <div class="button-label">
+                        Música
+                    </div>
+                </div>
+
             </div>
 
+        </main>
+
+    </div>
+
+    <div class="screen" id="yellowScreen">
+
+        <div class="background yellowBackground">
+            <div class="cloud yellow1"></div>
+            <div class="cloud yellow2"></div>
+            <div class="cloud yellowWhite1"></div>
+            <div class="cloud yellowWhite2"></div>
         </div>
 
-    </main>
+        <main class="content" id="yellowContent">
+
+            <div class="symbol yellowSymbol">🌻</div>
+
+            <h1 class="yellowTitle">Flores Amarillas</h1>
+
+            <div class="line yellowLine"></div>
+
+            <div class="text">
+
+                <div class="sentence">
+                    <div class="yellowText">
+                        Quería que este día tuviera algo especial.
+                    </div>
+                </div>
+
+                <div class="sentence">
+                    <div class="yellowText">
+                        Estas flores son para vos, pero también llevan un pequeño mensaje.
+                    </div>
+                </div>
+
+                <div class="sentence">
+                    <div class="yellowText">
+                        Quizás sean solo flores amarillas, pero para mí representan algo más:
+                        una forma de decirte que pensé en vos, que quería hacerte sonreír y que,
+                        aunque a veces las palabras no alcancen, hay cosas que prefiero demostrar.
+                    </div>
+                </div>
+
+                <div class="sentence">
+                    <div class="yellowText">
+                        Espero que cuando las veas, te acuerdes de mí.
+                    </div>
+                </div>
+
+                <div class="sentence">
+                    <div class="yellowText">
+                        Y que cada vez que mires estas flores, recuerdes que alguien eligió
+                        cada una pensando en vos.
+                    </div>
+                </div>
+
+                <div class="sentence">
+                    <div class="yellowText">
+                        Con mucho cariño. 🌻
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="buttons">
+
+                <div id="yellowMusicControl">
+                    <button
+                        class="control"
+                        id="yellowMusicButton"
+                        title="Música">
+                        ▶
+                    </button>
+
+                    <div class="button-label yellowLabel">
+                        Música
+                    </div>
+                </div>
+
+            </div>
+
+        </main>
+
+    </div>
 
     <audio id="music" loop preload="auto"></audio>
+    <audio id="yellowMusic" loop preload="auto"></audio>
 
     <script>
-        const startScreen =
-            document.getElementById("startScreen");
+        const startScreen = document.getElementById("startScreen");
+        const startButton = document.getElementById("startButton");
 
-        const startButton =
-            document.getElementById("startButton");
+        const menu = document.getElementById("menu");
 
-        const content =
-            document.getElementById("content");
+        const firstMessageButton = document.getElementById("firstMessageButton");
+        const yellowButton = document.getElementById("yellowButton");
+        const yellowStatus = document.getElementById("yellowStatus");
 
-        const music =
-            document.getElementById("music");
+        const firstScreen = document.getElementById("firstScreen");
+        const yellowScreen = document.getElementById("yellowScreen");
 
-        const musicButton =
-            document.getElementById("musicButton");
+        const firstContent = document.getElementById("firstContent");
+        const yellowContent = document.getElementById("yellowContent");
 
-        const musicControl =
-            document.getElementById("musicControl");
+        const music = document.getElementById("music");
+        const yellowMusic = document.getElementById("yellowMusic");
 
-        const translationButton =
-            document.getElementById("translationButton");
+        const musicButton = document.getElementById("musicButton");
+        const yellowMusicButton = document.getElementById("yellowMusicButton");
 
-        const translations =
-            document.querySelectorAll(".spanish");
+        const musicControl = document.getElementById("musicControl");
+        const yellowMusicControl = document.getElementById("yellowMusicControl");
+
+        const translationButton = document.getElementById("translationButton");
+        const translations = document.querySelectorAll(".spanish");
+
+        const codeScreen = document.getElementById("codeScreen");
+        const codeInput = document.getElementById("codeInput");
+        const codeError = document.getElementById("codeError");
+        const cancelCode = document.getElementById("cancelCode");
+        const verifyCode = document.getElementById("verifyCode");
 
         music.src = "./musica/OjitosLindos.mp3";
+        yellowMusic.src = "./musica/FloresAmarillas.mp3";
+
+        const yellowFlowersTimestamp = 1789959600000;
+        const yellowFlowersDayEnd = yellowFlowersTimestamp + 86400000;
+        const yellowCode = "260726";
 
         let playing = false;
+        let yellowPlaying = false;
         let translationsVisible = false;
 
         function hideMusic() {
             musicControl.style.display = "none";
         }
 
-        startButton.addEventListener("click", () => {
+        function hideYellowMusic() {
+            yellowMusicControl.style.display = "none";
+        }
 
+        function showMenu() {
+            firstScreen.classList.remove("active");
+            yellowScreen.classList.remove("active");
+
+            firstContent.classList.remove("visible");
+            yellowContent.classList.remove("visible");
+
+            menu.classList.add("active");
+
+            music.pause();
+            yellowMusic.pause();
+
+            playing = false;
+            yellowPlaying = false;
+
+            musicButton.textContent = "▶";
+            yellowMusicButton.textContent = "▶";
+        }
+
+        function openFirstMessage() {
+            menu.classList.remove("active");
+            firstScreen.classList.add("active");
+
+            setTimeout(() => {
+                firstContent.classList.add("visible");
+            }, 50);
+        }
+
+        function openYellowFlowers() {
+            codeScreen.classList.remove("active");
+            menu.classList.remove("active");
+
+            firstScreen.classList.remove("active");
+            yellowScreen.classList.add("active");
+
+            setTimeout(() => {
+                yellowContent.classList.add("visible");
+            }, 50);
+        }
+
+        function updateYellowButton() {
+            const now = Date.now();
+
+            if (now < yellowFlowersTimestamp) {
+                yellowButton.classList.add("disabled");
+
+                const remaining = yellowFlowersTimestamp - now;
+
+                const days = Math.floor(remaining / 86400000);
+                const hours = Math.floor((remaining % 86400000) / 3600000);
+                const minutes = Math.floor((remaining % 3600000) / 60000);
+                const seconds = Math.floor((remaining % 60000) / 1000);
+
+                yellowStatus.textContent =
+                    `${days}d ${hours}h ${minutes}m ${seconds}s`;
+
+                return;
+            }
+
+            yellowButton.classList.remove("disabled");
+
+            if (now >= yellowFlowersDayEnd) {
+                yellowStatus.textContent = "🎵 🔊";
+            } else {
+                yellowStatus.textContent = "🎵 🔊";
+            }
+        }
+
+        function requestYellowAccess() {
+            const now = Date.now();
+
+            if (now < yellowFlowersTimestamp) {
+                return;
+            }
+
+            if (now >= yellowFlowersDayEnd) {
+                openYellowFlowers();
+                return;
+            }
+
+            codeInput.value = "";
+            codeError.textContent = "";
+            codeScreen.classList.add("active");
+
+            setTimeout(() => {
+                codeInput.focus();
+            }, 100);
+        }
+
+        startButton.addEventListener("click", () => {
             startScreen.style.opacity = "0";
             startScreen.style.transform = "scale(1.08)";
 
-            content.classList.add("visible");
-
             setTimeout(() => {
                 startScreen.style.display = "none";
+                menu.classList.add("active");
             }, 900);
 
             music.play()
@@ -577,22 +1060,59 @@
                 });
         });
 
+        firstMessageButton.addEventListener("click", () => {
+            openFirstMessage();
+        });
+
+        yellowButton.addEventListener("click", () => {
+            requestYellowAccess();
+        });
+
+        cancelCode.addEventListener("click", () => {
+            codeScreen.classList.remove("active");
+            codeInput.value = "";
+            codeError.textContent = "";
+        });
+
+        verifyCode.addEventListener("click", () => {
+            if (codeInput.value === yellowCode) {
+                codeError.textContent = "";
+                openYellowFlowers();
+            } else {
+                codeError.textContent = "Código incorrecto.";
+                codeInput.value = "";
+                codeInput.focus();
+            }
+        });
+
+        codeInput.addEventListener("input", () => {
+            codeInput.value = codeInput.value.replace(/\D/g, "");
+
+            if (codeInput.value.length === 6) {
+                codeError.textContent = "";
+            }
+        });
+
+        codeInput.addEventListener("keydown", (event) => {
+            if (event.key === "Enter") {
+                verifyCode.click();
+            }
+        });
+
         music.addEventListener("error", () => {
             hideMusic();
         });
 
+        yellowMusic.addEventListener("error", () => {
+            hideYellowMusic();
+        });
+
         musicButton.addEventListener("click", () => {
-
             if (playing) {
-
                 music.pause();
-
                 musicButton.textContent = "▶";
-
                 playing = false;
-
             } else {
-
                 music.play()
                     .then(() => {
                         playing = true;
@@ -604,24 +1124,40 @@
             }
         });
 
-        translationButton.addEventListener("click", () => {
+        yellowMusicButton.addEventListener("click", () => {
+            if (yellowPlaying) {
+                yellowMusic.pause();
+                yellowMusicButton.textContent = "▶";
+                yellowPlaying = false;
+            } else {
+                yellowMusic.play()
+                    .then(() => {
+                        yellowPlaying = true;
+                        yellowMusicButton.textContent = "❚❚";
+                    })
+                    .catch(() => {
+                        hideYellowMusic();
+                    });
+            }
+        });
 
-            translationsVisible =
-                !translationsVisible;
+        translationButton.addEventListener("click", () => {
+            translationsVisible = !translationsVisible;
 
             translations.forEach(translation => {
-
                 if (translationsVisible) {
                     translation.classList.add("show");
                 } else {
                     translation.classList.remove("show");
                 }
-
             });
 
             translationButton.textContent =
                 translationsVisible ? "✕" : "文";
         });
+
+        updateYellowButton();
+        setInterval(updateYellowButton, 1000);
     </script>
 
 </body>
