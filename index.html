@@ -55,13 +55,13 @@ button {
 }
 
 .menu-screen.menu-enter {
-    animation: menuEnter 0.65s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation: menuEnter 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 @keyframes menuEnter {
     0% {
         opacity: 0;
-        transform: translateY(18px) scale(0.985);
+        transform: translateY(14px) scale(0.99);
     }
 
     100% {
@@ -107,8 +107,8 @@ button {
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     transition:
-        transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
-        background 0.3s ease;
+        transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+        background 0.35s ease;
 }
 
 .section-button:active {
@@ -157,22 +157,30 @@ button {
 }
 
 .content-screen.section-opening {
-    animation: contentEnter 0.85s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation: contentEnter 1.05s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .content-screen.section-closing {
-    animation: contentExit 0.55s cubic-bezier(0.4, 0, 0.2, 1) both;
+    animation: contentExit 0.7s cubic-bezier(0.4, 0, 0.2, 1) both;
 }
 
 @keyframes contentEnter {
     0% {
         opacity: 0;
-        transform: translateY(25px) scale(1.025);
+        transform: translateY(24px) scale(1.018);
+        filter: blur(2px);
+    }
+
+    45% {
+        opacity: 0.65;
+        transform: translateY(8px) scale(1.006);
+        filter: blur(0.7px);
     }
 
     100% {
         opacity: 1;
         transform: translateY(0) scale(1);
+        filter: blur(0);
     }
 }
 
@@ -180,11 +188,13 @@ button {
     0% {
         opacity: 1;
         transform: translateY(0) scale(1);
+        filter: blur(0);
     }
 
     100% {
         opacity: 0;
-        transform: translateY(22px) scale(0.985);
+        transform: translateY(16px) scale(0.99);
+        filter: blur(1px);
     }
 }
 
@@ -282,7 +292,7 @@ button {
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     transition:
-        transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
         background 0.3s ease;
 }
 
@@ -297,7 +307,7 @@ button {
     line-height: 1;
     margin: 10px 0 18px;
     text-shadow: 0 5px 20px rgba(0,0,0,0.15);
-    animation: symbolAppear 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation: symbolAppear 1s cubic-bezier(0.16, 1, 0.3, 1) 0.08s both;
 }
 
 .flowers-message .symbol {
@@ -307,7 +317,7 @@ button {
 @keyframes symbolAppear {
     0% {
         opacity: 0;
-        transform: translateY(-15px) scale(0.9);
+        transform: translateY(-12px) scale(0.94);
     }
 
     100% {
@@ -323,7 +333,7 @@ button {
     text-align: center;
     text-shadow: 0 2px 12px rgba(0,0,0,0.35);
     margin-bottom: 30px;
-    animation: titleAppear 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.08s both;
+    animation: titleAppear 1s cubic-bezier(0.16, 1, 0.3, 1) 0.12s both;
 }
 
 .flowers-message .content-title {
@@ -334,7 +344,7 @@ button {
 @keyframes titleAppear {
     0% {
         opacity: 0;
-        transform: translateY(14px);
+        transform: translateY(12px);
     }
 
     100% {
@@ -358,7 +368,7 @@ button {
     line-height: 1.75;
     text-shadow: 0 1px 7px rgba(0,0,0,0.4);
     box-shadow: 0 12px 35px rgba(0,0,0,0.12);
-    animation: boxAppear 1s cubic-bezier(0.22, 1, 0.36, 1) 0.15s both;
+    animation: boxAppear 1.05s cubic-bezier(0.16, 1, 0.3, 1) 0.18s both;
 }
 
 .flowers-message .text-box {
@@ -371,7 +381,7 @@ button {
 @keyframes boxAppear {
     0% {
         opacity: 0;
-        transform: translateY(20px) scale(0.99);
+        transform: translateY(18px) scale(0.992);
     }
 
     100% {
@@ -381,7 +391,7 @@ button {
 }
 
 .text-box p {
-    margin-bottom: 24px;
+    margin-bottom: 15px;
 }
 
 .text-box p:last-child {
@@ -394,10 +404,10 @@ button {
     opacity: 0;
     transform: translateY(-5px);
     transition:
-        grid-template-rows 0.55s cubic-bezier(0.22, 1, 0.36, 1),
-        opacity 0.4s ease,
-        transform 0.55s cubic-bezier(0.22, 1, 0.36, 1),
-        margin 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+        grid-template-rows 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+        opacity 0.5s ease,
+        transform 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+        margin 0.65s cubic-bezier(0.22, 1, 0.36, 1);
     overflow: hidden;
     margin-top: 0;
     margin-bottom: 0;
@@ -415,8 +425,8 @@ button {
     grid-template-rows: 1fr;
     opacity: 0.85;
     transform: translateY(0);
-    margin-top: -15px;
-    margin-bottom: 24px;
+    margin-top: -8px;
+    margin-bottom: 15px;
 }
 
 .translation-content {
@@ -434,13 +444,13 @@ button {
     width: calc(100% - 40px);
     max-width: 430px;
     justify-content: center;
-    animation: controlsAppear 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.3s both;
+    animation: controlsAppear 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.28s both;
 }
 
 @keyframes controlsAppear {
     0% {
         opacity: 0;
-        transform: translateX(-50%) translateY(12px);
+        transform: translateX(-50%) translateY(10px);
     }
 
     100% {
@@ -460,7 +470,7 @@ button {
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     transition:
-        transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
         background 0.3s ease;
 }
 
@@ -484,7 +494,7 @@ button {
         radial-gradient(circle at 20% 20%, rgba(225,193,45,0.25), transparent 35%),
         radial-gradient(circle at 80% 80%, rgba(255,255,255,0.12), transparent 35%),
         linear-gradient(145deg, #252014, #4b401d);
-    animation: contentEnter 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation: contentEnter 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 .code-symbol {
@@ -787,7 +797,7 @@ const flowersMusicButton = document.getElementById("flowersMusicButton");
 firstMusic.src = "./musica/OjitosLindos.mp3";
 flowersMusic.src = "./musica/FloresAmarillas.mp3";
 
-let currentScreen = null;
+let currentScreen = menuScreen;
 let isTransitioning = false;
 
 function showOnly(screen) {
@@ -842,7 +852,7 @@ function openFlowers() {
 
     setTimeout(() => {
         document.getElementById("codeInput").focus();
-    }, 350);
+    }, 450);
 }
 
 function checkCode() {
@@ -901,7 +911,7 @@ function goToMenu() {
         isTransitioning = false;
 
         updateFlowersStatus();
-    }, 520);
+    }, 680);
 }
 
 function toggleFirstMusic() {
@@ -993,8 +1003,6 @@ document.getElementById("codeInput").addEventListener("keydown", function(event)
 setInterval(updateFlowersStatus, 1000);
 
 updateFlowersStatus();
-
-currentScreen = menuScreen;
 </script>
 
 </body>
