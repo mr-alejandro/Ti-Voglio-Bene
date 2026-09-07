@@ -787,11 +787,8 @@ button {
 
 </div>
 
-<audio id="firstMusic" preload="none"
-       src="https://mr-alejandro.github.io/Ti-Voglio-Bene/OjitosLindos.mp3"></audio>
-
-<audio id="flowersMusic" preload="none"
-       src="./musica/FloresAmarillas.mp3"></audio>
+<audio id="firstMusic" preload="none" src="./musica/OjitosLindos.mp3"></audio>
+<audio id="flowersMusic" preload="none" src="./musica/FloresAmarillas.mp3"></audio>
 
 <script>
 (() => {
@@ -803,7 +800,7 @@ button {
      * ==========================================================
      */
 
-    const YELLOW_FLOWERS_TIMESTAMP = 1789959600;
+    const YELLOW_FLOWERS_TIMESTAMP = 1789959600 * 1000;
 
     /*
      * El inicio del "día de código" es la fecha del timestamp.
