@@ -486,6 +486,46 @@ button {
         margin-bottom: 28px;
     }
 }
+
+/* ---------- Rendimiento en celulares ---------- */
+/* backdrop-filter y filter:blur() animado son muy costosos en GPUs
+   móviles. En pantallas táctiles bajamos el blur y detenemos las
+   "nubes" animadas para que no se sienta lag. */
+@media (hover: none) and (pointer: coarse) {
+    .glass,
+    .control-button {
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        background: rgba(35, 25, 20, 0.86);
+    }
+
+    .flowers-message .control-button {
+        background: rgba(70, 56, 12, 0.9);
+    }
+
+    .text-box {
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        background: rgba(35, 25, 20, 0.55);
+    }
+
+    .flowers-message .text-box {
+        background: rgba(255, 255, 255, 0.62);
+    }
+
+    .content-screen::before,
+    .content-screen::after {
+        animation: none;
+        filter: blur(28px);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .content-screen::before,
+    .content-screen::after {
+        animation: none;
+    }
+}
 </style>
 </head>
 
