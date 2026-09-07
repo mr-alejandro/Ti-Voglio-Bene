@@ -48,7 +48,6 @@ button {
     width: 100%;
 }
 
-/* ---------- Botón / panel "glass" reutilizable ---------- */
 .glass {
     border: 1px solid var(--panel-border);
     background: var(--panel-bg);
@@ -63,7 +62,6 @@ button {
     transform: scale(0.94);
 }
 
-/* ---------- Menú principal ---------- */
 .menu-screen {
     min-height: 100vh;
     display: flex;
@@ -82,8 +80,14 @@ button {
 }
 
 @keyframes menuEnter {
-    from { opacity: 0; transform: translateY(14px) scale(0.99); }
-    to   { opacity: 1; transform: translateY(0) scale(1); }
+    from {
+        opacity: 0;
+        transform: translateY(14px) scale(0.99);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
 }
 
 .menu-title {
@@ -154,7 +158,6 @@ button {
     color: #a9998d;
 }
 
-/* ---------- Pantallas de contenido ---------- */
 .content-screen {
     position: relative;
     min-height: 100vh;
@@ -170,14 +173,34 @@ button {
 }
 
 @keyframes contentEnter {
-    0%   { opacity: 0;    transform: translateY(24px) scale(1.018); filter: blur(2px); }
-    45%  { opacity: 0.65; transform: translateY(8px)  scale(1.006); filter: blur(0.7px); }
-    100% { opacity: 1;    transform: translateY(0)     scale(1);    filter: blur(0); }
+    0% {
+        opacity: 0;
+        transform: translateY(24px) scale(1.018);
+        filter: blur(2px);
+    }
+    45% {
+        opacity: 0.65;
+        transform: translateY(8px) scale(1.006);
+        filter: blur(0.7px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+    }
 }
 
 @keyframes contentExit {
-    from { opacity: 1; transform: translateY(0)    scale(1);    filter: blur(0); }
-    to   { opacity: 0; transform: translateY(16px) scale(0.99); filter: blur(1px); }
+    from {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(16px) scale(0.99);
+        filter: blur(1px);
+    }
 }
 
 .content-screen::before,
@@ -214,8 +237,13 @@ button {
         linear-gradient(145deg, #e8ded5, #75533d 50%, #eee6df);
 }
 
-.first-message::before { background: rgba(255,255,255,0.42); }
-.first-message::after  { background: rgba(91,61,41,0.3); }
+.first-message::before {
+    background: rgba(255,255,255,0.42);
+}
+
+.first-message::after {
+    background: rgba(91,61,41,0.3);
+}
 
 .flowers-message {
     background:
@@ -226,12 +254,21 @@ button {
         linear-gradient(145deg, #fffdf2, #ddc94e 50%, #fffef8);
 }
 
-.flowers-message::before { background: rgba(255,255,255,0.48); }
-.flowers-message::after  { background: rgba(211,174,36,0.3); }
+.flowers-message::before {
+    background: rgba(255,255,255,0.48);
+}
+
+.flowers-message::after {
+    background: rgba(211,174,36,0.3);
+}
 
 @keyframes cloudMove {
-    from { transform: translate3d(0, 0, 0) scale(1); }
-    to   { transform: translate3d(45px, -18px, 0) scale(1.08); }
+    from {
+        transform: translate3d(0, 0, 0) scale(1);
+    }
+    to {
+        transform: translate3d(45px, -18px, 0) scale(1.08);
+    }
 }
 
 .content-inner {
@@ -269,8 +306,14 @@ button {
 }
 
 @keyframes symbolAppear {
-    from { opacity: 0; transform: translateY(-12px) scale(0.94); }
-    to   { opacity: 1; transform: translateY(0) scale(1); }
+    from {
+        opacity: 0;
+        transform: translateY(-12px) scale(0.94);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
 }
 
 .content-title {
@@ -289,8 +332,14 @@ button {
 }
 
 @keyframes titleAppear {
-    from { opacity: 0; transform: translateY(12px); }
-    to   { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .text-box {
@@ -319,8 +368,14 @@ button {
 }
 
 @keyframes boxAppear {
-    from { opacity: 0; transform: translateY(18px) scale(0.992); }
-    to   { opacity: 1; transform: translateY(0) scale(1); }
+    from {
+        opacity: 0;
+        transform: translateY(18px) scale(0.992);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
 }
 
 .text-box p {
@@ -375,8 +430,14 @@ button {
 }
 
 @keyframes controlsAppear {
-    from { opacity: 0; transform: translateX(-50%) translateY(10px); }
-    to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
 }
 
 .control-button {
@@ -390,7 +451,6 @@ button {
     background: rgba(95,76,16,0.72);
 }
 
-/* ---------- Pantalla de código ---------- */
 .code-screen {
     min-height: 100vh;
     display: flex;
@@ -487,10 +547,6 @@ button {
     }
 }
 
-/* ---------- Rendimiento en celulares ---------- */
-/* backdrop-filter y filter:blur() animado son muy costosos en GPUs
-   móviles. En pantallas táctiles bajamos el blur y detenemos las
-   "nubes" animadas para que no se sienta lag. */
 @media (hover: none) and (pointer: coarse) {
     .glass,
     .control-button {
@@ -519,10 +575,6 @@ button {
         filter: blur(28px);
     }
 
-    /* La transición original anima "filter: blur()" en toda la pantalla,
-       lo cual fuerza al celular a recalcular ese blur en cada frame.
-       En mobile usamos una versión sin filter (solo opacity/transform,
-       que sí van por GPU vía compositor). */
     .content-screen.section-opening {
         animation: contentEnterLite 0.5s ease-out both;
     }
@@ -531,10 +583,6 @@ button {
         animation: contentExitLite 0.35s ease-in both;
     }
 
-    /* Antes animábamos las 8 traducciones a la vez, lo que hacía que
-       8 recálculos de layout compitieran en el mismo frame. Ahora el
-       JS las revela en cascada (una por una), así que en mobile alcanza
-       con una transición más corta por elemento. */
     .translation {
         transition:
             grid-template-rows 0.4s var(--ease-spring),
@@ -545,13 +593,25 @@ button {
 }
 
 @keyframes contentEnterLite {
-    from { opacity: 0; transform: translateY(14px); }
-    to   { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(14px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 @keyframes contentExitLite {
-    from { opacity: 1; transform: translateY(0); }
-    to   { opacity: 0; transform: translateY(10px); }
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(10px);
+    }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -600,28 +660,60 @@ button {
         <div class="text-box">
 
             <p>Voglio dirti che sono davvero interessato a te.</p>
-            <div class="translation"><div class="translation-content">Quiero decirte que estoy realmente interesado en ti.</div></div>
+            <div class="translation">
+                <div class="translation-content">
+                    Quiero decirte que estoy realmente interesado en ti.
+                </div>
+            </div>
 
             <p>E che vorrei passare al tuo fianco ogni istante, nei giorni belli e in quelli più difficili.</p>
-            <div class="translation"><div class="translation-content">Y que me gustaría pasar a tu lado cada instante, en los días buenos y en los más difíciles.</div></div>
+            <div class="translation">
+                <div class="translation-content">
+                    Y que me gustaría pasar a tu lado cada instante, en los días buenos y en los más difíciles.
+                </div>
+            </div>
 
             <p>Vorrei essere il tuo compagno.</p>
-            <div class="translation"><div class="translation-content">Quisiera ser tu compañero.</div></div>
+            <div class="translation">
+                <div class="translation-content">
+                    Quisiera ser tu compañero.
+                </div>
+            </div>
 
             <p>Colui che rimane accanto a te quando ne hai bisogno.</p>
-            <div class="translation"><div class="translation-content">Aquel que permanece a tu lado cuando lo necesitas.</div></div>
+            <div class="translation">
+                <div class="translation-content">
+                    Aquel que permanece a tu lado cuando lo necesitas.
+                </div>
+            </div>
 
             <p>La mano che puoi cercare quando tutto sembra diventare più pesante.</p>
-            <div class="translation"><div class="translation-content">La mano que puedes buscar cuando todo parece volverse más pesado.</div></div>
+            <div class="translation">
+                <div class="translation-content">
+                    La mano que puedes buscar cuando todo parece volverse más pesado.
+                </div>
+            </div>
 
             <p>Vorrei essere il tuo posto sicuro.</p>
-            <div class="translation"><div class="translation-content">Quisiera ser tu lugar seguro.</div></div>
+            <div class="translation">
+                <div class="translation-content">
+                    Quisiera ser tu lugar seguro.
+                </div>
+            </div>
 
             <p>Dove puoi essere semplicemente te stesso, senza paura, senza maschere.</p>
-            <div class="translation"><div class="translation-content">Donde puedas ser simplemente tú mismo, sin miedo, sin máscaras.</div></div>
+            <div class="translation">
+                <div class="translation-content">
+                    Donde puedas ser simplemente tú mismo, sin miedo, sin máscaras.
+                </div>
+            </div>
 
             <p>Sapendo che, qualunque cosa accada, io sarò lì al tuo fianco.</p>
-            <div class="translation"><div class="translation-content">Sabiendo que, pase lo que pase, estaré allí a tu lado.</div></div>
+            <div class="translation">
+                <div class="translation-content">
+                    Sabiendo que, pase lo que pase, estaré allí a tu lado.
+                </div>
+            </div>
 
         </div>
 
@@ -674,10 +766,15 @@ button {
         <div class="text-box">
 
             <p>Quería que este día tuviera algo especial.</p>
+
             <p>Estas flores son para vos, pero también llevan un pequeño mensaje.</p>
+
             <p>Quizás sean solo flores amarillas, pero para mí representan algo más: una forma de decirte que pensé en vos, que quería hacerte sonreír y que, aunque a veces las palabras no alcancen, hay cosas que prefiero demostrar.</p>
+
             <p>Espero que cuando las veas, te acuerdes de mí.</p>
+
             <p>Y que cada vez que mires estas flores, recuerdes que alguien eligió cada una pensando en vos.</p>
+
             <p>Con mucho cariño. 🌻</p>
 
         </div>
@@ -690,26 +787,64 @@ button {
 
 </div>
 
-<audio id="firstMusic" preload="none" src="./musica/OjitosLindos.mp3"></audio>
-<audio id="flowersMusic" preload="none" src="./musica/FloresAmarillas.mp3"></audio>
+<audio id="firstMusic" preload="none"
+       src="https://mr-alejandro.github.io/Ti-Voglio-Bene/OjitosLindos.mp3"></audio>
+
+<audio id="flowersMusic" preload="none"
+       src="./musica/FloresAmarillas.mp3"></audio>
 
 <script>
 (() => {
     "use strict";
 
-    // ---------- Configuración ----------
-    const YELLOW_FLOWERS_TIMESTAMP = 1788834815000;
-    const YELLOW_FLOWERS_DAY_END = YELLOW_FLOWERS_TIMESTAMP + 86400000;
+    /*
+     * ==========================================================
+     * CONFIGURACIÓN DE FECHAS
+     * ==========================================================
+     *
+     * IMPORTANTE:
+     * Date.now() trabaja en MILISEGUNDOS.
+     *
+     * Timestamp real:
+     * 1789959600 segundos
+     * 1789959600000 milisegundos
+     *
+     * Para las pruebas actuales usamos:
+     * 1788749015 segundos
+     * 1788749015000 milisegundos
+     */
+
+    const YELLOW_FLOWERS_TIMESTAMP = 1788749015000;
+
+    /*
+     * El inicio del "día de código" es la fecha del timestamp.
+     * El final se calcula usando la fecha calendario siguiente,
+     * no simplemente sumando 24 horas.
+     */
+
+    const yellowFlowersDate = new Date(YELLOW_FLOWERS_TIMESTAMP);
+
+    const yellowFlowersDayEnd = new Date(
+        yellowFlowersDate.getFullYear(),
+        yellowFlowersDate.getMonth(),
+        yellowFlowersDate.getDate() + 1,
+        0,
+        0,
+        0,
+        0
+    ).getTime();
+
     const FLOWERS_CODE = "260726";
+
     const CLOSE_ANIM_MS = 680;
 
-    // ---------- Referencias DOM (una sola vez) ----------
     const screens = {
         menu: document.getElementById("menuScreen"),
         firstMessage: document.getElementById("firstMessageScreen"),
         flowersCode: document.getElementById("flowersCodeScreen"),
-        flowers: document.getElementById("flowersScreen"),
+        flowers: document.getElementById("flowersScreen")
     };
+
     const allScreens = Object.values(screens);
 
     const flowersButton = document.getElementById("flowersButton");
@@ -719,20 +854,22 @@ button {
 
     const music = {
         first: document.getElementById("firstMusic"),
-        flowers: document.getElementById("flowersMusic"),
+        flowers: document.getElementById("flowersMusic")
     };
 
     let currentScreen = screens.menu;
     let isTransitioning = false;
     let statusInterval = null;
 
-    // ---------- Navegación entre pantallas ----------
     function showOnly(screen) {
         allScreens.forEach(s => s.classList.add("hidden"));
+
         screen.classList.remove("hidden");
 
         screen.classList.remove("section-opening");
-        void screen.offsetWidth; // fuerza reflow para reiniciar la animación
+
+        void screen.offsetWidth;
+
         screen.classList.add("section-opening");
 
         currentScreen = screen;
@@ -747,7 +884,9 @@ button {
         }
 
         stopAllMusic();
+
         showOnly(screens[key]);
+
         playMusicFor(screens[key]);
     }
 
@@ -755,182 +894,380 @@ button {
         if (isTransitioning || currentScreen === screens.menu) return;
 
         isTransitioning = true;
+
         stopAllMusic();
 
         const leaving = currentScreen;
+
         leaving.classList.remove("section-opening");
         leaving.classList.add("section-closing");
 
         setTimeout(() => {
+
             leaving.classList.add("hidden");
             leaving.classList.remove("section-closing");
 
             screens.menu.classList.remove("hidden", "menu-enter");
+
             void screens.menu.offsetWidth;
+
             screens.menu.classList.add("menu-enter");
 
             currentScreen = screens.menu;
+
             isTransitioning = false;
+
             updateFlowersStatus();
+
         }, CLOSE_ANIM_MS);
     }
 
-    // ---------- Flores: bloqueo por fecha + código ----------
+    /*
+     * ==========================================================
+     * FLORES AMARILLAS
+     *
+     * ANTES DEL TIMESTAMP:
+     *     Bloqueado + cuenta regresiva.
+     *
+     * DURANTE EL DÍA:
+     *     Pide código.
+     *
+     * DESDE EL DÍA SIGUIENTE:
+     *     Entra directamente.
+     * ==========================================================
+     */
+
     function openFlowers() {
+
         const now = Date.now();
 
-        if (now < YELLOW_FLOWERS_TIMESTAMP) return;
+        if (now < YELLOW_FLOWERS_TIMESTAMP) {
+            return;
+        }
 
-        if (now >= YELLOW_FLOWERS_DAY_END) {
+        if (now >= yellowFlowersDayEnd) {
             showFlowers();
             return;
         }
 
         codeInput.value = "";
         codeError.textContent = "";
+
         showOnly(screens.flowersCode);
-        setTimeout(() => codeInput.focus(), 450);
+
+        setTimeout(() => {
+            codeInput.focus();
+        }, 450);
     }
 
     function checkCode() {
+
         const value = codeInput.value.trim();
 
         if (value === FLOWERS_CODE) {
+
             codeError.textContent = "";
+
             showFlowers();
+
         } else {
+
             codeError.textContent = "Código incorrecto.";
+
             codeInput.value = "";
+
         }
     }
 
     function showFlowers() {
+
         stopAllMusic();
+
         showOnly(screens.flowers);
+
         playMusicFor(screens.flowers);
     }
 
-    // ---------- Música ----------
+    /*
+     * ==========================================================
+     * MÚSICA
+     * ==========================================================
+     */
+
     function playMusicFor(screen) {
+
         const key = screen.dataset.music;
+
         if (!key) return;
 
         const audio = music[key];
+
         audio.currentTime = 0;
+
         audio.play()
-            .then(() => setMusicButtonLabel(screen, true))
-            .catch(() => setMusicButtonLabel(screen, false));
+            .then(() => {
+                setMusicButtonLabel(screen, true);
+            })
+            .catch(() => {
+                setMusicButtonLabel(screen, false);
+            });
     }
 
     function toggleMusic(screen) {
+
         const key = screen.dataset.music;
+
         if (!key) return;
 
         const audio = music[key];
+
         if (audio.paused) {
+
             audio.play()
-                .then(() => setMusicButtonLabel(screen, true))
+                .then(() => {
+                    setMusicButtonLabel(screen, true);
+                })
                 .catch(() => {});
+
         } else {
+
             audio.pause();
+
             setMusicButtonLabel(screen, false);
         }
     }
 
     function setMusicButtonLabel(screen, isPlaying) {
-        const btn = screen.querySelector("[data-toggle-music]");
-        if (btn) btn.textContent = isPlaying ? "🔊 Pausar" : "🎵 Música";
+
+        const btn =
+            screen.querySelector("[data-toggle-music]");
+
+        if (btn) {
+            btn.textContent =
+                isPlaying ? "🔊 Pausar" : "🎵 Música";
+        }
     }
 
     function stopAllMusic() {
+
         Object.values(music).forEach(audio => {
+
             audio.pause();
+
             audio.currentTime = 0;
+
         });
-        allScreens.forEach(s => setMusicButtonLabel(s, false));
+
+        allScreens.forEach(screen => {
+            setMusicButtonLabel(screen, false);
+        });
     }
 
-    // ---------- Traducciones ----------
-    // Se revelan/ocultan en cascada (una por una) en vez de las 8 a la
-    // vez: así en cualquier instante solo hay una animación de layout
-    // corriendo, lo que se siente mucho más fluido en celulares.
+    /*
+     * ==========================================================
+     * TRADUCCIONES
+     * ==========================================================
+     */
+
     const TRANSLATION_STAGGER_MS = 70;
 
     function toggleTranslations() {
-        const translations = document.querySelectorAll(".translation");
+
+        const translations =
+            document.querySelectorAll(".translation");
+
         if (!translations.length) return;
 
-        const willShow = !translations[0].classList.contains("visible");
+        const willShow =
+            !translations[0].classList.contains("visible");
 
-        translations.forEach((t, index) => {
+        translations.forEach((translation, index) => {
+
             setTimeout(() => {
-                t.classList.toggle("visible", willShow);
+
+                translation.classList.toggle(
+                    "visible",
+                    willShow
+                );
+
             }, index * TRANSLATION_STAGGER_MS);
+
         });
     }
 
-    // ---------- Countdown de flores ----------
+    /*
+     * ==========================================================
+     * CUENTA REGRESIVA
+     * ==========================================================
+     */
+
     function updateFlowersStatus() {
+
         const now = Date.now();
 
         if (now < YELLOW_FLOWERS_TIMESTAMP) {
+
             flowersButton.classList.add("locked");
-            countdownEl.textContent = getCountdownText(now);
+
+            countdownEl.textContent =
+                getCountdownText(
+                    YELLOW_FLOWERS_TIMESTAMP - now
+                );
 
             if (!statusInterval) {
-                statusInterval = setInterval(updateFlowersStatus, 1000);
+
+                statusInterval =
+                    setInterval(
+                        updateFlowersStatus,
+                        1000
+                    );
+
             }
+
+            return;
+        }
+
+        /*
+         * A partir del momento exacto del timestamp,
+         * el botón deja de estar bloqueado.
+         */
+
+        flowersButton.classList.remove("locked");
+
+        /*
+         * Durante el día:
+         * muestra que necesita el código.
+         */
+
+        if (now < yellowFlowersDayEnd) {
+
+            countdownEl.textContent =
+                "🔐 Requiere código";
+
         } else {
-            flowersButton.classList.remove("locked");
+
+            /*
+             * Desde el día siguiente:
+             * ya no hay cuenta regresiva ni código.
+             */
+
             countdownEl.textContent = "";
 
-            if (statusInterval) {
-                clearInterval(statusInterval);
-                statusInterval = null;
-            }
+        }
+
+        if (statusInterval) {
+
+            clearInterval(statusInterval);
+
+            statusInterval = null;
+
         }
     }
 
-    function getCountdownText(now) {
-        const diff = YELLOW_FLOWERS_TIMESTAMP - now;
+    function getCountdownText(diff) {
 
-        const days = Math.floor(diff / 86400000);
-        const hours = Math.floor((diff % 86400000) / 3600000);
-        const minutes = Math.floor((diff % 3600000) / 60000);
-        const seconds = Math.floor((diff % 60000) / 1000);
+        const days =
+            Math.floor(diff / 86400000);
 
-        if (days > 0) return `Disponible en ${days}d ${hours}h ${minutes}m`;
-        if (hours > 0) return `Disponible en ${hours}h ${minutes}m ${seconds}s`;
-        if (minutes > 0) return `Disponible en ${minutes}m ${seconds}s`;
+        const hours =
+            Math.floor(
+                (diff % 86400000) / 3600000
+            );
+
+        const minutes =
+            Math.floor(
+                (diff % 3600000) / 60000
+            );
+
+        const seconds =
+            Math.floor(
+                (diff % 60000) / 1000
+            );
+
+        if (days > 0) {
+
+            return `Disponible en ${days}d ${hours}h ${minutes}m`;
+
+        }
+
+        if (hours > 0) {
+
+            return `Disponible en ${hours}h ${minutes}m ${seconds}s`;
+
+        }
+
+        if (minutes > 0) {
+
+            return `Disponible en ${minutes}m ${seconds}s`;
+
+        }
+
         return `Disponible en ${seconds}s`;
     }
 
-    // ---------- Delegación de eventos (un solo listener) ----------
-    document.addEventListener("click", (event) => {
-        const target = event.target.closest(
-            "[data-open], [data-back], [data-toggle-music], [data-toggle-translation], [data-check-code]"
-        );
+    /*
+     * ==========================================================
+     * EVENTOS
+     * ==========================================================
+     */
+
+    document.addEventListener("click", event => {
+
+        const target =
+            event.target.closest(
+                "[data-open], [data-back], [data-toggle-music], [data-toggle-translation], [data-check-code]"
+            );
+
         if (!target) return;
 
         if (target.dataset.open) {
+
             openScreen(target.dataset.open);
-        } else if (target.hasAttribute("data-back")) {
+
+        } else if (
+            target.hasAttribute("data-back")
+        ) {
+
             goToMenu();
-        } else if (target.hasAttribute("data-toggle-music")) {
+
+        } else if (
+            target.hasAttribute("data-toggle-music")
+        ) {
+
             toggleMusic(currentScreen);
-        } else if (target.hasAttribute("data-toggle-translation")) {
+
+        } else if (
+            target.hasAttribute("data-toggle-translation")
+        ) {
+
             toggleTranslations();
-        } else if (target.hasAttribute("data-check-code")) {
+
+        } else if (
+            target.hasAttribute("data-check-code")
+        ) {
+
+            checkCode();
+
+        }
+
+    });
+
+    codeInput.addEventListener("keydown", event => {
+
+        if (event.key === "Enter") {
             checkCode();
         }
+
     });
 
-    codeInput.addEventListener("keydown", (event) => {
-        if (event.key === "Enter") checkCode();
-    });
+    /*
+     * ==========================================================
+     * INICIO
+     * ==========================================================
+     */
 
-    // ---------- Inicio ----------
     updateFlowersStatus();
+
 })();
 </script>
 
