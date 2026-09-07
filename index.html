@@ -518,6 +518,36 @@ button {
         animation: none;
         filter: blur(28px);
     }
+
+    /* La transición original anima "filter: blur()" en toda la pantalla,
+       lo cual fuerza al celular a recalcular ese blur en cada frame.
+       En mobile usamos una versión sin filter (solo opacity/transform,
+       que sí van por GPU vía compositor). */
+    .content-screen.section-opening {
+        animation: contentEnterLite 0.5s ease-out both;
+    }
+
+    .content-screen.section-closing {
+        animation: contentExitLite 0.35s ease-in both;
+    }
+
+    /* El toggle de traducciones anima grid-template-rows en 8 elementos
+       a la vez: cada frame recalcula el layout de todo lo que viene
+       después. En mobile lo hacemos instantáneo y dejamos solo el
+       fade de opacity, que es mucho más barato. */
+    .translation {
+        transition: opacity 0.25s ease;
+    }
+}
+
+@keyframes contentEnterLite {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes contentExitLite {
+    from { opacity: 1; transform: translateY(0); }
+    to   { opacity: 0; transform: translateY(10px); }
 }
 
 @media (prefers-reduced-motion: reduce) {
