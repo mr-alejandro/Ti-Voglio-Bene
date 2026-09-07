@@ -13,7 +13,8 @@
     -webkit-tap-highlight-color: transparent;
 }
 
-html, body {
+html,
+body {
     width: 100%;
     min-height: 100%;
     font-family: Georgia, "Times New Roman", serif;
@@ -133,24 +134,7 @@ button {
     position: relative;
     min-height: 100vh;
     overflow: hidden;
-}
-
-.first-message {
-    background:
-        radial-gradient(ellipse 70% 35% at 15% 15%, rgba(255,255,255,0.92), transparent 70%),
-        radial-gradient(ellipse 65% 32% at 85% 25%, rgba(103,72,49,0.82), transparent 70%),
-        radial-gradient(ellipse 75% 40% at 20% 75%, rgba(255,255,255,0.82), transparent 70%),
-        radial-gradient(ellipse 70% 38% at 85% 90%, rgba(95,65,45,0.78), transparent 70%),
-        linear-gradient(145deg, #e9e0d8, #74533d 48%, #eee7e0);
-}
-
-.flowers-message {
-    background:
-        radial-gradient(ellipse 70% 35% at 15% 15%, rgba(255,255,255,0.95), transparent 70%),
-        radial-gradient(ellipse 65% 32% at 85% 25%, rgba(224,190,49,0.65), transparent 70%),
-        radial-gradient(ellipse 75% 40% at 20% 75%, rgba(255,255,255,0.88), transparent 70%),
-        radial-gradient(ellipse 70% 38% at 85% 90%, rgba(221,181,35,0.6), transparent 70%),
-        linear-gradient(145deg, #fffdf3, #dfc94f 48%, #fffef7);
+    animation: sectionEnter 0.9s ease both;
 }
 
 .content-screen::before,
@@ -158,24 +142,80 @@ button {
     content: "";
     position: absolute;
     border-radius: 50%;
-    filter: blur(35px);
     pointer-events: none;
+    filter: blur(42px);
+    animation: cloudMove 9s ease-in-out infinite alternate;
 }
 
 .content-screen::before {
-    width: 220px;
-    height: 120px;
-    top: 8%;
-    left: -60px;
-    background: rgba(255,255,255,0.35);
+    width: 360px;
+    height: 190px;
+    top: 5%;
+    left: -110px;
 }
 
 .content-screen::after {
-    width: 260px;
-    height: 140px;
-    bottom: 5%;
-    right: -80px;
-    background: rgba(255,255,255,0.3);
+    width: 390px;
+    height: 210px;
+    bottom: 3%;
+    right: -130px;
+    animation-delay: -4s;
+}
+
+.first-message {
+    background:
+        radial-gradient(ellipse 75% 38% at 15% 10%, rgba(255,255,255,0.94), transparent 70%),
+        radial-gradient(ellipse 70% 35% at 88% 22%, rgba(112,77,52,0.86), transparent 70%),
+        radial-gradient(ellipse 80% 40% at 15% 75%, rgba(255,255,255,0.88), transparent 70%),
+        radial-gradient(ellipse 75% 40% at 90% 90%, rgba(104,70,47,0.8), transparent 70%),
+        linear-gradient(145deg, #e8ded5, #75533d 50%, #eee6df);
+}
+
+.first-message::before {
+    background: rgba(255,255,255,0.42);
+}
+
+.first-message::after {
+    background: rgba(91,61,41,0.3);
+}
+
+.flowers-message {
+    background:
+        radial-gradient(ellipse 75% 38% at 15% 10%, rgba(255,255,255,0.96), transparent 70%),
+        radial-gradient(ellipse 70% 35% at 88% 22%, rgba(224,191,48,0.68), transparent 70%),
+        radial-gradient(ellipse 80% 40% at 15% 75%, rgba(255,255,255,0.92), transparent 70%),
+        radial-gradient(ellipse 75% 40% at 90% 90%, rgba(218,178,36,0.63), transparent 70%),
+        linear-gradient(145deg, #fffdf2, #ddc94e 50%, #fffef8);
+}
+
+.flowers-message::before {
+    background: rgba(255,255,255,0.48);
+}
+
+.flowers-message::after {
+    background: rgba(211,174,36,0.3);
+}
+
+@keyframes sectionEnter {
+    0% {
+        opacity: 0;
+        transform: scale(1.025);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes cloudMove {
+    0% {
+        transform: translate3d(0, 0, 0) scale(1);
+    }
+
+    100% {
+        transform: translate3d(45px, -18px, 0) scale(1.08);
+    }
 }
 
 .content-inner {
@@ -185,7 +225,7 @@ button {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 70px 22px 110px;
+    padding: 70px 22px 115px;
 }
 
 .back-button {
@@ -193,15 +233,20 @@ button {
     z-index: 5;
     top: 20px;
     left: 18px;
-    border: none;
+    border: 1px solid rgba(255,255,255,0.18);
     border-radius: 30px;
     padding: 10px 17px;
-    background: rgba(35,25,20,0.7);
+    background: rgba(35,25,20,0.62);
     color: white;
     font-size: 0.9rem;
     cursor: pointer;
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.back-button:active {
+    transform: scale(0.94);
 }
 
 .symbol {
@@ -211,10 +256,23 @@ button {
     line-height: 1;
     margin: 10px 0 18px;
     text-shadow: 0 5px 20px rgba(0,0,0,0.15);
+    animation: symbolAppear 1s ease both;
 }
 
 .flowers-message .symbol {
     font-size: 3.5rem;
+}
+
+@keyframes symbolAppear {
+    0% {
+        opacity: 0;
+        transform: translateY(-12px) scale(0.9);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
 }
 
 .content-title {
@@ -224,6 +282,7 @@ button {
     text-align: center;
     text-shadow: 0 2px 12px rgba(0,0,0,0.35);
     margin-bottom: 30px;
+    animation: titleAppear 0.9s ease 0.1s both;
 }
 
 .flowers-message .content-title {
@@ -231,23 +290,61 @@ button {
     text-shadow: 0 2px 10px rgba(255,255,255,0.55);
 }
 
+@keyframes titleAppear {
+    0% {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 .text-box {
     width: 100%;
     max-width: 600px;
+    padding: 28px 24px;
+    border: 1px solid rgba(255,255,255,0.28);
+    border-radius: 24px;
+    background: rgba(35,25,20,0.27);
+    backdrop-filter: blur(13px);
+    -webkit-backdrop-filter: blur(13px);
     color: #fff;
     text-align: center;
     font-size: 1.08rem;
     line-height: 1.75;
     text-shadow: 0 1px 7px rgba(0,0,0,0.4);
+    box-shadow: 0 12px 35px rgba(0,0,0,0.12);
+    animation: boxAppear 1s ease 0.2s both;
 }
 
 .flowers-message .text-box {
+    border-color: rgba(112,91,20,0.2);
+    background: rgba(255,255,255,0.34);
     color: #4f4118;
     text-shadow: 0 1px 7px rgba(255,255,255,0.7);
 }
 
+@keyframes boxAppear {
+    0% {
+        opacity: 0;
+        transform: translateY(18px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 .text-box p {
     margin-bottom: 24px;
+}
+
+.text-box p:last-child {
+    margin-bottom: 0;
 }
 
 .translation {
@@ -262,6 +359,19 @@ button {
 
 .translation.visible {
     display: block;
+    animation: translationAppear 0.35s ease both;
+}
+
+@keyframes translationAppear {
+    0% {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+
+    100% {
+        opacity: 0.85;
+        transform: translateY(0);
+    }
 }
 
 .controls {
@@ -278,19 +388,24 @@ button {
 }
 
 .control-button {
-    border: none;
+    border: 1px solid rgba(255,255,255,0.18);
     border-radius: 30px;
     padding: 11px 19px;
-    background: rgba(35,25,20,0.75);
+    background: rgba(35,25,20,0.72);
     color: white;
     font-size: 0.9rem;
     cursor: pointer;
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    transition: transform 0.2s ease;
+}
+
+.control-button:active {
+    transform: scale(0.94);
 }
 
 .flowers-message .control-button {
-    background: rgba(95,76,16,0.78);
+    background: rgba(95,76,16,0.72);
 }
 
 .code-screen {
@@ -305,6 +420,7 @@ button {
         radial-gradient(circle at 20% 20%, rgba(225,193,45,0.25), transparent 35%),
         radial-gradient(circle at 80% 80%, rgba(255,255,255,0.12), transparent 35%),
         linear-gradient(145deg, #252014, #4b401d);
+    animation: sectionEnter 0.7s ease both;
 }
 
 .code-symbol {
@@ -364,12 +480,14 @@ button {
 
 @media (max-width: 480px) {
     .content-inner {
-        padding-left: 18px;
-        padding-right: 18px;
+        padding-left: 16px;
+        padding-right: 16px;
     }
 
     .text-box {
+        padding: 24px 19px;
         font-size: 1rem;
+        border-radius: 21px;
     }
 
     .menu-title {
@@ -598,6 +716,7 @@ function openFirstMessage() {
     showOnly(firstMessageScreen);
 
     firstMusic.currentTime = 0;
+
     firstMusic.play()
         .then(() => {
             firstMusicButton.textContent = "🔊 Pausar";
@@ -647,6 +766,7 @@ function showFlowers() {
     showOnly(flowersScreen);
 
     flowersMusic.currentTime = 0;
+
     flowersMusic.play()
         .then(() => {
             flowersMusicButton.textContent = "🔊 Pausar";
@@ -704,7 +824,6 @@ function updateFlowersStatus() {
 
     if (now < yellowFlowersTimestamp) {
         flowersButton.classList.add("locked");
-        flowersButton.disabled = false;
         countdown.textContent = getCountdownText(now);
     } else {
         flowersButton.classList.remove("locked");
