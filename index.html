@@ -531,12 +531,16 @@ button {
         animation: contentExitLite 0.35s ease-in both;
     }
 
-    /* El toggle de traducciones anima grid-template-rows en 8 elementos
-       a la vez: cada frame recalcula el layout de todo lo que viene
-       después. En mobile lo hacemos instantáneo y dejamos solo el
-       fade de opacity, que es mucho más barato. */
+    /* Antes animábamos las 8 traducciones a la vez, lo que hacía que
+       8 recálculos de layout compitieran en el mismo frame. Ahora el
+       JS las revela en cascada (una por una), así que en mobile alcanza
+       con una transición más corta por elemento. */
     .translation {
-        transition: opacity 0.25s ease;
+        transition:
+            grid-template-rows 0.4s var(--ease-spring),
+            opacity 0.3s ease,
+            transform 0.4s var(--ease-spring),
+            margin 0.4s var(--ease-spring);
     }
 }
 
@@ -847,8 +851,22 @@ button {
     }
 
     // ---------- Traducciones ----------
+    // Se revelan/ocultan en cascada (una por una) en vez de las 8 a la
+    // vez: así en cualquier instante solo hay una animación de layout
+    // corriendo, lo que se siente mucho más fluido en celulares.
+    const TRANSLATION_STAGGER_MS = 70;
+
     function toggleTranslations() {
-        document.querySelectorAll(".translation").forEach(t => t.classList.toggle("visible"));
+        const translations = document.querySelectorAll(".translation");
+        if (!translations.length) return;
+
+        const willShow = !translations[0].classList.contains("visible");
+
+        translations.forEach((t, index) => {
+            setTimeout(() => {
+                t.classList.toggle("visible", willShow);
+            }, index * TRANSLATION_STAGGER_MS);
+        });
     }
 
     // ---------- Countdown de flores ----------
