@@ -801,25 +801,12 @@ button {
      * ==========================================================
      * CONFIGURACIÓN DE FECHAS
      * ==========================================================
-     *
-     * IMPORTANTE:
-     * Date.now() trabaja en MILISEGUNDOS.
-     *
-     * Timestamp real:
-     * 1789959600 segundos
-     * 1789959600000 milisegundos
-     *
-     * Para las pruebas actuales usamos:
-     * 1788749015 segundos
-     * 1788749015000 milisegundos
      */
 
-    const YELLOW_FLOWERS_TIMESTAMP = 1788749735;
+    const YELLOW_FLOWERS_TIMESTAMP = 1789959600;
 
     /*
      * El inicio del "día de código" es la fecha del timestamp.
-     * El final se calcula usando la fecha calendario siguiente,
-     * no simplemente sumando 24 horas.
      */
 
     const yellowFlowersDate = new Date(YELLOW_FLOWERS_TIMESTAMP);
@@ -834,7 +821,7 @@ button {
         0
     ).getTime();
 
-    const FLOWERS_CODE = "260726";
+    const FLOWERS_CODE = "230826";
 
     const CLOSE_ANIM_MS = 680;
 
