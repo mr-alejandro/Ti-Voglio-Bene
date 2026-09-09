@@ -496,11 +496,13 @@ button {
     text-align: center;
     font-size: 1.2rem;
     letter-spacing: 5px;
+    text-transform: uppercase;
 }
 
 .code-input::placeholder {
     color: #bdb6a5;
     letter-spacing: 1px;
+    text-transform: none;
 }
 
 .code-error {
@@ -740,11 +742,14 @@ button {
     <input
         id="codeInput"
         class="code-input"
-        type="tel"
-        inputmode="numeric"
+        type="text"
+        inputmode="text"
         maxlength="6"
         placeholder="Código"
+        autocapitalize="characters"
         autocomplete="off"
+        autocorrect="off"
+        spellcheck="false"
     >
 
     <div id="codeError" class="code-error"></div>
@@ -946,7 +951,7 @@ button {
 
     function checkCode() {
 
-        const value = codeInput.value.trim();
+        const value = codeInput.value.trim().toUpperCase();
 
         if (value === FLOWERS_CODE) {
 
@@ -1232,6 +1237,18 @@ button {
 
             checkCode();
 
+        }
+
+    });
+
+    codeInput.addEventListener("input", () => {
+
+        const cursorPos = codeInput.selectionStart;
+        const upper = codeInput.value.toUpperCase();
+
+        if (upper !== codeInput.value) {
+            codeInput.value = upper;
+            codeInput.setSelectionRange(cursorPos, cursorPos);
         }
 
     });
