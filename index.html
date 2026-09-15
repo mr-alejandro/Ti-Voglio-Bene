@@ -751,6 +751,12 @@ button {
     left: 18%;
 }
 
+.magic-unlock.closing {
+    animation: none;
+    transition: opacity 0.8s ease;
+    opacity: 0;
+}
+
 @keyframes magicFadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
@@ -795,6 +801,10 @@ button {
     }
 
     .magic-door {
+        transition-duration: 0.01ms;
+    }
+
+    .magic-unlock.closing {
         transition-duration: 0.01ms;
     }
 }
@@ -1154,34 +1164,45 @@ button {
         }
     }
 
+    const DOORS_OPEN_DELAY_MS = 1250;
+    const DOORS_OPEN_DURATION_MS = 1800;
+    const OVERLAY_FADE_MS = 800;
+
     function showFlowers() {
 
         stopAllMusic();
 
         showOnly(screens.flowers);
 
+        // La música arranca apenas se confirma el código (o se toca el botón
+        // al día siguiente), en paralelo a la animación, no al final de ella.
+        playMusicFor(screens.flowers);
+
         const magicUnlock = document.getElementById("magicUnlock");
 
-        if (!magicUnlock) {
-            playMusicFor(screens.flowers);
-            return;
-        }
+        if (!magicUnlock) return;
 
-        magicUnlock.classList.remove("opening");
+        magicUnlock.classList.remove("opening", "closing");
         magicUnlock.classList.add("active");
         magicUnlock.setAttribute("aria-hidden", "false");
 
-        // Las puertas aparecen únicamente después de introducir el código correcto.
+        // Las puertas se abren después de introducir el código correcto.
         setTimeout(() => {
             magicUnlock.classList.add("opening");
-        }, 1250);
+        }, DOORS_OPEN_DELAY_MS);
 
-        // Cuando termina la apertura, se retira la capa y queda visible el contenido original.
+        // Una vez abiertas, toda la capa se desvanece suavemente en vez de
+        // cortarse de golpe, revelando la pantalla de flores que ya está
+        // detrás (visible y con música sonando).
         setTimeout(() => {
-            magicUnlock.classList.remove("active", "opening");
+            magicUnlock.classList.add("closing");
+        }, DOORS_OPEN_DELAY_MS + DOORS_OPEN_DURATION_MS);
+
+        // Al terminar el desvanecimiento, se retira la capa del todo.
+        setTimeout(() => {
+            magicUnlock.classList.remove("active", "opening", "closing");
             magicUnlock.setAttribute("aria-hidden", "true");
-            playMusicFor(screens.flowers);
-        }, 3300);
+        }, DOORS_OPEN_DELAY_MS + DOORS_OPEN_DURATION_MS + OVERLAY_FADE_MS);
     }
 
     /*
@@ -1189,6 +1210,38 @@ button {
      * MÚSICA
      * ==========================================================
      */
+
+    const MUSIC_FADE_MS = 2500;
+    const MUSIC_TARGET_VOLUME = 1;
+    const MUSIC_FADE_STEPS = 30;
+
+    function fadeInAudio(audio) {
+
+        if (audio._fadeInterval) {
+            clearInterval(audio._fadeInterval);
+            audio._fadeInterval = null;
+        }
+
+        audio.volume = 0;
+
+        let step = 0;
+
+        audio._fadeInterval = setInterval(() => {
+
+            step++;
+
+            audio.volume = Math.min(
+                MUSIC_TARGET_VOLUME,
+                (step / MUSIC_FADE_STEPS) * MUSIC_TARGET_VOLUME
+            );
+
+            if (step >= MUSIC_FADE_STEPS) {
+                clearInterval(audio._fadeInterval);
+                audio._fadeInterval = null;
+            }
+
+        }, MUSIC_FADE_MS / MUSIC_FADE_STEPS);
+    }
 
     function playMusicFor(screen) {
 
@@ -1199,10 +1252,12 @@ button {
         const audio = music[key];
 
         audio.currentTime = 0;
+        audio.volume = 0;
 
         audio.play()
             .then(() => {
                 setMusicButtonLabel(screen, true);
+                fadeInAudio(audio);
             })
             .catch(() => {
                 setMusicButtonLabel(screen, false);
@@ -1219,13 +1274,21 @@ button {
 
         if (audio.paused) {
 
+            audio.volume = 0;
+
             audio.play()
                 .then(() => {
                     setMusicButtonLabel(screen, true);
+                    fadeInAudio(audio);
                 })
                 .catch(() => {});
 
         } else {
+
+            if (audio._fadeInterval) {
+                clearInterval(audio._fadeInterval);
+                audio._fadeInterval = null;
+            }
 
             audio.pause();
 
@@ -1248,9 +1311,16 @@ button {
 
         Object.values(music).forEach(audio => {
 
+            if (audio._fadeInterval) {
+                clearInterval(audio._fadeInterval);
+                audio._fadeInterval = null;
+            }
+
             audio.pause();
 
             audio.currentTime = 0;
+
+            audio.volume = 0;
 
         });
 
