@@ -751,12 +751,6 @@ button {
     left: 18%;
 }
 
-.magic-unlock.closing {
-    animation: none;
-    transition: opacity 0.8s ease;
-    opacity: 0;
-}
-
 @keyframes magicFadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
@@ -801,10 +795,6 @@ button {
     }
 
     .magic-door {
-        transition-duration: 0.01ms;
-    }
-
-    .magic-unlock.closing {
         transition-duration: 0.01ms;
     }
 }
@@ -1168,6 +1158,54 @@ button {
     const DOORS_OPEN_DURATION_MS = 1800;
     const OVERLAY_FADE_MS = 800;
 
+    function prefersReducedMotion() {
+        return !!(
+            window.matchMedia &&
+            window.matchMedia("(prefers-reduced-motion: reduce)").matches
+        );
+    }
+
+    /*
+     * Las animaciones CSS con fill-mode "both" (magicFadeIn, etc.) tienen
+     * prioridad por sobre una simple declaración de opacidad en otra clase,
+     * así que agregar una clase ".closing" con "opacity: 0" no alcanza para
+     * desvanecer la capa: la animación sigue "ganando" y el corte se ve
+     * brusco igual. Por eso el desvanecimiento final se controla a mano
+     * desde JS: se cancela la animación (animation: none), se fuerza un
+     * repintado, y recién ahí se activa la transición de opacidad.
+     */
+    function fadeOutOverlay(el, durationMs) {
+
+        return new Promise(resolve => {
+
+            if (prefersReducedMotion()) {
+                el.style.animation = "none";
+                el.style.transition = "none";
+                el.style.opacity = "0";
+                resolve();
+                return;
+            }
+
+            el.style.animation = "none";
+            el.style.transition = "none";
+            el.style.opacity = "1";
+
+            // Fuerza al navegador a "confirmar" el estado congelado de arriba
+            // antes de activar la transición, o si no salta directo al final.
+            void el.offsetHeight;
+
+            requestAnimationFrame(() => {
+                el.style.transition = `opacity ${durationMs}ms ease`;
+
+                requestAnimationFrame(() => {
+                    el.style.opacity = "0";
+                });
+            });
+
+            setTimeout(resolve, durationMs);
+        });
+    }
+
     function showFlowers() {
 
         stopAllMusic();
@@ -1182,7 +1220,12 @@ button {
 
         if (!magicUnlock) return;
 
-        magicUnlock.classList.remove("opening", "closing");
+        // Limpia estilos inline que pudieran haber quedado de una vez anterior.
+        magicUnlock.style.transition = "";
+        magicUnlock.style.opacity = "";
+        magicUnlock.style.animation = "";
+
+        magicUnlock.classList.remove("opening");
         magicUnlock.classList.add("active");
         magicUnlock.setAttribute("aria-hidden", "false");
 
@@ -1195,14 +1238,18 @@ button {
         // cortarse de golpe, revelando la pantalla de flores que ya está
         // detrás (visible y con música sonando).
         setTimeout(() => {
-            magicUnlock.classList.add("closing");
-        }, DOORS_OPEN_DELAY_MS + DOORS_OPEN_DURATION_MS);
 
-        // Al terminar el desvanecimiento, se retira la capa del todo.
-        setTimeout(() => {
-            magicUnlock.classList.remove("active", "opening", "closing");
-            magicUnlock.setAttribute("aria-hidden", "true");
-        }, DOORS_OPEN_DELAY_MS + DOORS_OPEN_DURATION_MS + OVERLAY_FADE_MS);
+            fadeOutOverlay(magicUnlock, OVERLAY_FADE_MS).then(() => {
+
+                magicUnlock.classList.remove("active", "opening");
+                magicUnlock.setAttribute("aria-hidden", "true");
+
+                magicUnlock.style.transition = "";
+                magicUnlock.style.opacity = "";
+                magicUnlock.style.animation = "";
+            });
+
+        }, DOORS_OPEN_DELAY_MS + DOORS_OPEN_DURATION_MS);
     }
 
     /*
@@ -1264,6 +1311,49 @@ button {
             });
     }
 
+    const MUSIC_FADE_OUT_MS = 900;
+    const MUSIC_FADE_OUT_STEPS = 20;
+
+    function fadeOutAudio(audio, onComplete) {
+
+        if (audio._fadeInterval) {
+            clearInterval(audio._fadeInterval);
+            audio._fadeInterval = null;
+        }
+
+        if (audio.paused) {
+            if (onComplete) onComplete();
+            return;
+        }
+
+        const startVolume = audio.volume > 0 ? audio.volume : MUSIC_TARGET_VOLUME;
+
+        let step = 0;
+
+        audio._fadeInterval = setInterval(() => {
+
+            step++;
+
+            audio.volume = Math.max(
+                0,
+                startVolume * (1 - step / MUSIC_FADE_OUT_STEPS)
+            );
+
+            if (step >= MUSIC_FADE_OUT_STEPS) {
+
+                clearInterval(audio._fadeInterval);
+                audio._fadeInterval = null;
+
+                audio.pause();
+                audio.currentTime = 0;
+                audio.volume = 0;
+
+                if (onComplete) onComplete();
+            }
+
+        }, MUSIC_FADE_OUT_MS / MUSIC_FADE_OUT_STEPS);
+    }
+
     function toggleMusic(screen) {
 
         const key = screen.dataset.music;
@@ -1285,14 +1375,10 @@ button {
 
         } else {
 
-            if (audio._fadeInterval) {
-                clearInterval(audio._fadeInterval);
-                audio._fadeInterval = null;
-            }
-
-            audio.pause();
-
+            // El botón cambia al toque; el audio se desvanece de fondo.
             setMusicButtonLabel(screen, false);
+
+            fadeOutAudio(audio);
         }
     }
 
@@ -1310,18 +1396,7 @@ button {
     function stopAllMusic() {
 
         Object.values(music).forEach(audio => {
-
-            if (audio._fadeInterval) {
-                clearInterval(audio._fadeInterval);
-                audio._fadeInterval = null;
-            }
-
-            audio.pause();
-
-            audio.currentTime = 0;
-
-            audio.volume = 0;
-
+            fadeOutAudio(audio);
         });
 
         allScreens.forEach(screen => {
